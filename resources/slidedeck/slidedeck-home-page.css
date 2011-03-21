@@ -1,0 +1,404 @@
+body {
+	position: relative;
+	margin: 0;
+	padding: 0;
+    font: normal 62.5%/1.6em Arial, Helvetica, sans-serif;
+}
+
+#slidedeck_frame {
+	position: relative;
+	margin: 0 auto;
+	width: 910px;
+    height: 300px;
+}
+
+/* Vertical nav in the spine */
+.skin-slidedeck dl.slidedeck ul.verticalSlideNav {
+    height: 70px;
+    width: 25px;
+    background: none;
+    position: relative;
+    overflow: hidden;
+    padding: 15px 0 0;
+    margin: 0;
+    top: 0;
+    left: 125px;
+    -webkit-transform: rotate(90deg);
+    -webkit-transform-origin: -7px 0;
+    -moz-transform: rotate(90deg);
+    -moz-transform-origin: -7px 0;
+    -o-transform: rotate(90deg);
+    -o-transform-origin: -7px 0;
+}
+.skin-slidedeck dl.slidedeck ul.verticalSlideNav li {
+    position: relative;
+    width: 25px;
+    height: 12px;
+    line-height: 12px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    float: left;
+    clear: left;    
+}
+/*
+ * The SlideDeck vertical slide position indicator.
+ * 
+ * This is the element that slides behind the default navigation link list to
+ * show which is the current vertical slide being viewed. This should be given
+ * similar dimensions to the vertical slide navigation links.
+ * 
+ * NOTE: This element is not used in this skin, so it is hidden
+ */
+.skin-slidedeck dl.slidedeck dd.slide ul.verticalSlideNav li.arrow { display: none; }
+.skin-slidedeck dl.slidedeck ul.verticalSlideNav li a {
+    position: relative;
+    display: block;
+    padding: 12px 0 0 0;
+    margin: 0;
+    width: 25px;
+    height: 0;
+    overflow: hidden;
+    line-height: 12px;
+    background: url('vertical-nav.png') 0 0 no-repeat;
+}
+/* Vertical slide navigation style for the currently active vertical slide navigation link */
+.skin-slidedeck dl.slidedeck ul.verticalSlideNav li.active a {
+    background-position: 0 -24px;
+}
+/* Vertical slide navigation link style when the parent horizontal slide is active */
+.skin-slidedeck dl.slidedeck dt.active ul.verticalSlideNav li.active a {
+    background-position: 0 -12px;
+}
+
+
+
+.skin-slidedeck dl.slidedeck dt.spine_2.active .index { margin-bottom: 0; }
+.skin-slidedeck dl.slidedeck .activeCorner.spine_2,
+.skin-slidedeck dl.slidedeck .activeCorner.spine_4 { margin-left: -1px; }
+
+.skin-slidedeck dl.slidedeck .copy {
+	position: absolute;
+	width: 290px;
+	height: 245px;
+	top: 28px;
+	left: 68px;
+	color: #666;
+	font-size: 1.3em;
+	line-height: 1.5em;
+}
+.skin-slidedeck dl.slidedeck ul.slidesVertical .copy {
+	left: 40px;
+	width: 280px;
+}
+.skin-slidedeck dl.slidedeck ul.slidesVertical .cardImage {
+	left: 340px;
+}
+.skin-slidedeck dl.slidedeck .copy.wide {
+	width: 675px;
+}
+.skin-slidedeck dl.slidedeck dd.slide .copy h5.small-title {
+    color: #666;
+    font: bold italic 13px Georgia, "Times New Roman", Times, serif;
+    margin: -10px 0 0;
+}
+
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li {
+    padding: 0;
+}
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical li.case div.case_text ul,
+.skin-slidedeck dl.slidedeck dd.slide .copy ul.no-float {
+    color: #333;
+    font: bold 12px Georgia, "Times New Roman", Times, serif;
+    margin: 10px 0 0;
+    overflow: hidden;
+    padding: 0 0 0 15px;
+    position: relative;
+    line-height: 18px;
+}
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical li.case div.case_text ul li,
+.skin-slidedeck dl.slidedeck dd.slide ul.no-float li {
+    float: left;
+    margin: 0;
+    width: 48%;
+}
+.skin-slidedeck dl.slidedeck dd.slide ul.no-float li {
+    float: none;
+    width: 100%;
+}
+.skin-slidedeck dl.slidedeck .copy.wide a {
+	display: block;
+	position: absolute;
+	top: 8px;
+	right: 0;
+	padding-right: 15px;
+	background: url('slidedeck-home-images/slide-3_link-arrow.png') right 5px no-repeat;
+	color: #a53f79;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: bold;
+	font-style: oblique;
+}
+.skin-slidedeck dl.slidedeck .copy strong {
+	color:#333;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+.skin-slidedeck dl.slidedeck .copy h4.title {
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 1.5em;
+	line-height: 26px;
+	margin: 0 0 10px;
+	color: #252525;
+}
+.skin-slidedeck dl.slidedeck .copy p { margin: 0 0 25px; }
+.skin-slidedeck dl.slidedeck .cardImage {
+	position: absolute;
+	top: 28px;
+	left: 380px;
+}
+.skin-slidedeck dl.slidedeck .wideImage {
+	position: absolute;
+	top: 160px;
+	left: 85px;
+}
+.skin-slidedeck dl.slidedeck .tagline {
+	position: absolute;
+	top: 240px;
+	left: 380px;
+	width: 374px;
+	height: 20px;
+	line-height: 20px;
+	color: #191919;
+	font-size: 1.35em;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.skin-slidedeck dl.slidedeck dd.slide_3 {
+    background-image: url("slidedeck-home-images/slide-3_bg.png");
+}
+
+.skin-slidedeck dl.slidedeck dd.slide_4 {
+	background: url('slidedeck-home-images/slide_5-bg.png') 0 0 repeat-x;
+	color: #fff;
+	padding-left: 78px !important;
+	padding-right: 35px !important;
+	width: 660px !important;
+}
+
+.skin-slidedeck dl.slidedeck .slide_4 div.head {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	padding-top: 10px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.head h2 {
+	width: 282px;
+	position: relative;
+	overflow: hidden;
+	height: 0;
+	padding-top: 36px;
+	background: url('slidedeck-home-images/slide_5_title.png') 0 0 no-repeat;
+	float: left;
+	margin: 5px 0 0;
+	line-height: 80px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.head a, .skin-slidedeck dl.slidedeck .slide_4 div.head a:link {
+	position: relative;
+	overflow: hidden;
+	width: 225px;
+	height: 0;
+	padding-top: 46px;
+	background: url('slidedeck-home-images/slide_5_btn-download.png') 0 0 no-repeat;
+	float: right;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.head a:hover {
+	background-position: 0 -46px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.head a:active {
+	background-position: 0 -92px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body {
+	width: 609px;
+	height: 170px;
+	background: url('slidedeck-home-images/slide_5_content-bg.png') 0 0 no-repeat;
+	position: absolute;
+	bottom: 0;
+	padding: 25px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body div.wordpress {
+	width: 290px;
+	float: right;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body div.jquery {
+	width: 290px;
+	float: left;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body h3 {
+	position: relative;
+	overflow: hidden;
+	height: 0;
+	margin: 0 0 25px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body div.wordpress h3 {
+	margin: 0 0 18px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body li {
+	background: url('slidedeck-home-images/slide_5_bullet.png') 0 6px no-repeat;
+	margin: 0 0 10px 0;
+	padding: 0 0 0 15px;
+	font-size: 12px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body p {
+	clear: both;
+	position: relative;
+	overflow: hidden;
+	width: 521px;
+	height: 0;
+	padding-top: 21px;
+	background: url('slidedeck-home-images/slide_5_pro.png') 0 0 no-repeat;
+	position: absolute;
+	bottom: 20px;
+	left: 65px;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body div.jquery h3 {
+	width: 210px;
+	padding-top: 29px;
+	background: url('slidedeck-home-images/slide_5_javascript.png') 0 0 no-repeat;
+}
+.skin-slidedeck dl.slidedeck .slide_4 div.body div.wordpress h3 {
+	width: 256px;
+	padding-top: 36px;
+	background: url('slidedeck-home-images/slide_5_wordpress.png') 0 0 no-repeat;
+}
+.skin-slidedeck dl.slidedeck span.divider {
+	display: block;
+	height: 0;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	padding-top: 4px;
+	background: url('slidedeck-home-images/title-seperator.png') 0 0 repeat-x;
+	margin: 0 0 10px;
+}
+
+.skin-slidedeck dl.slidedeck > dt.spine_4.active,
+.skin-slidedeck dl.slidedeck > dt.spine_4.active:hover,
+.skin-slidedeck dl.slidedeck > dt.spine_2.active,
+.skin-slidedeck dl.slidedeck > dt.spine_4.active:hover {
+    background-image: url('slidedeck-home-images/spine_slide-5.png');
+}
+
+.skin-slidedeck dl.slidedeck dd.slide_2 div.use-cases {
+	width: 374px;
+	height: 245px;
+	float: right;
+	position: absolute;
+	overflow: hidden;
+	top: 28px;
+	right: 20px;
+}
+.skin-slidedeck dl.slidedeck dd.slide_2 div.use-cases img {
+	float: left;
+	cursor: pointer;
+}
+
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical li.verticalSlide_1 { background: #fff; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case {
+	background: url('slidedeck-home-images/vertical-slide_bg.png') 0 0 no-repeat;
+	position: relative;
+	overflow: hidden;
+	padding: 25px 0 0;
+}
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case div.case_image {
+	margin: 0 0 0 20px;
+	width: 355px;
+	float: left;
+	text-align: right;
+}
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case div.case_text {
+	margin: 25px 20px 0 0;
+	width: 330px;
+	float: right;
+}
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case.verticalSlide_2 div.case_image { margin-top: 8px; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case.verticalSlide_2 div.case_text { margin-top: 60px; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case.verticalSlide_3 div.case_image { margin-top: 2px; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case.verticalSlide_3 div.case_text { margin-top: 30px; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case.verticalSlide_4 div.case_image { margin-top: 16px; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case.verticalSlide_4 div.case_text { margin-top: 30px; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case.verticalSlide_5 div.case_image { margin-top: 16px; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case.verticalSlide_5 div.case_text { margin-top: 63px; }
+.skin-slidedeck dl.slidedeck dd.slide ul.slidesVertical > li.case div.case_text h5,
+.skin-slidedeck dl.slidedeck dd.slide h5.small-title {
+	font-family: Georgia, serif;
+	font-size: 13px;
+	font-style: italic;
+	color: #666;
+    margin-top: -10px 0 0;
+}
+.skin-slidedeck dl.slidedeck ul.slidesVertical li.case h4.title {
+	font-size: 18px;
+	text-transform: uppercase;
+	color: #1e1e1e;
+    margin: 0;
+}
+.skin-slidedeck dl.slidedeck ul.slidesVertical li.case p.sub {
+	font-size: 16px;
+	font-family: Georgia, serif;
+	font-style: italic;
+	color: #858585;
+	margin: 5px 0 10px;
+}
+.skin-slidedeck dl.slidedeck ul.slidesVertical li.case p {
+	font-size: 12px;
+	line-height: 18px;
+	color: #666;
+}
+
+/**
+ * BEGIN : Vertical slide previous/next button styling.
+ */
+.skin-slidedeck dl.slidedeck a.vertical-prev-next {
+	position: absolute;
+    display: none;
+    z-index: 20000;
+	width: 27px;
+	height: 0;
+	padding: 27px 0 0;
+	overflow: hidden;
+	line-height: 27px;
+	cursor: pointer;
+    left: 50%;
+    margin: 0 0 0 -13px;
+    background: url('vertical-prev-next.png');
+}
+.skin-slidedeck dl.slidedeck dd.slide:hover a.vertical-prev-next { display: block; }
+.skin-slidedeck dl.slidedeck a.vertical-prev-next.next {
+	bottom: 6px;
+	background-position: -27px 0;
+}
+.skin-slidedeck dl.slidedeck a.vertical-prev-next.previous {
+	top: 6px;
+	background-position: 0 0;
+}
+.skin-slidedeck dl.slidedeck li.case a.next { bottom: 31px; }
+.skin-slidedeck dl.slidedeck a.next:hover {
+	background-position: -27px -27px;
+}
+.skin-slidedeck dl.slidedeck a.previous:hover {
+	background-position: 0 -27px;
+}
+.skin-slidedeck dl.slidedeck:hover a.vertical-nav {
+	display: block;
+}
+/**
+ * END : Vertical slide previous/next button styling.
+ */

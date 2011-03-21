@@ -1,0 +1,4 @@
+form(method="post", action="/login") p label(for="name") Username:
+  input(type="text", name="name") p label(for="password") password:
+  input(type="password", name="password") p.buttons
+  input(type="submit", name="submit", value="Login")

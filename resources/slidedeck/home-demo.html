@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>SlideDeck v.1.2.1 HomePage Demo</title>
+
+        <!-- Include jQuery first. -->
+        <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+
+        <!-- Include the below script, Copyright 2010, Brandon Aaron (http://brandonaaron.net/) for scrollwheel support. -->
+        <script type="text/javascript" src="jquery-mousewheel/jquery.mousewheel.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="slidedeck.skin.css" media="screen,handheld" />
+        <!-- Styles for the skin that only load for Internet Explorer -->
+        <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="slidedeck.skin.ie.css" media="screen,handheld" />
+        <![endif]-->
+        
+        <!-- Styles custom to the SlideDeck.com home page content and additional navigation elements -->
+        <link rel="stylesheet" type="text/css" href="slidedeck-home-page.css" media="screen,handheld" />
+        <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="slidedeck-home-page.ie.css" media="screen,handheld" />
+        <![endif]-->
+
+        <!-- Include the SlideDeck jQuery script. -->
+        <script type="text/javascript" src="slidedeck.jquery.js"></script>
+    </head>
+    <body>
+        <div id="slidedeck_frame" class="skin-slidedeck">
+            <dl class="slidedeck">
+                <dt>What Is SlideDeck?</dt>
+                <dd>
+                    <div class="copy">
+                        <h4 class="title">What is SlideDeck?</h4>
+                        <span class="divider">&nbsp;</span>
+                        <p><strong>SlideDeck is a powerful slider plugin made for web designers.</strong> With SlideDeck, you can organize any type of web content into a beautiful and user-friendly slider.</p>
+                        <h5 class="small-title">Benefits:</h5>
+                        <ul class="no-float">
+                            <li>Saves Development Time</li>
+                            <li>Beautiful Default Design</li>
+                            <li>Powerful Features &amp; API</li>
+                            <li>Diligent Support</li>
+                        </ul>
+                    </div>
+                    <img src="slidedeck-home-images/slide_1.jpg" alt="jquery slider plugin simplify your design" class="cardImage" />
+                </dd>
+                <dt>Use Cases</dt>
+                <dd>
+                    <ul class="slidesVertical">
+                        <li>
+                            <div class="copy">
+                                <h4 class="title">Use Cases</h4>
+                                <span class="divider">&nbsp;</span>
+                                <p><strong>SlideDeck rocks for sharing ideas, explaining how something works or helping a user through a decision tree.</strong></p>
+                                <p>You can use SlideDeck to explain how your web app works or let a user visually browse your blog posts. Check out the <a href="http://www.slidedeck.com/examples">community examples</a> to see how our friends have implemented SlideDeck.</p>
+                            </div>
+                            <div class="use-cases">
+                                <img src="slidedeck-home-images/slide_2-usecase_01.jpg" alt="Visual Blog Posts"/>
+                                <img src="slidedeck-home-images/slide_2-usecase_02.jpg" alt="Video Gallery"/>
+                                <img src="slidedeck-home-images/slide_2-usecase_03.jpg" alt="Product Tours"/>
+                                <img src="slidedeck-home-images/slide_2-usecase_04.jpg" alt="Process Flows"/>
+                            </div>
+                        </li>
+                        <li class="case">
+                            <div class="case_image">
+                                <img src="slidedeck-home-images/vertical_use-case-02.png" alt="jquery accordion"/>
+                            </div>
+                            <div class="case_text">
+                                <h4 class="title">Dynamic Feeds</h4>
+                                <p class="sub">Feature Posts by Date, Category &amp; More</p>
+                                <p>Have a blog? Pull in posts with our smart SlideDeck. Dynamically pull in images and even set exerpt lengths. You can even grab feeds from your favorite blogs! Customize navigation styles, colors, dimensions and more.</p>
+                            </div>
+                        </li>
+                        <li class="case">
+                            <div class="case_image">
+                                <img src="slidedeck-home-images/vertical_use-case-01.png" alt="jquery accordion"/>
+                            </div>
+                            <div class="case_text">
+                                <h4 class="title">Photo &amp; Video Galleries</h4>
+                                <p class="sub">Showcase Visual Content</p>
+                                <p>SlideDeck can be used to create stunning photo and video galleries. Customize your navigaion options or use our turnkey solution. </p>
+                                <h5>Use it for:</h5>
+                                <ul>
+                                    <li>Portfolios</li>
+                                    <li>Blogs</li>
+                                    <li>Tours</li>
+                                    <li>Products</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="case">
+                            <div class="case_image">
+                                <img src="slidedeck-home-images/vertical_use-case-03.png" alt="jquery accordion"/>
+                            </div>
+                            <div class="case_text">
+                                <h4 class="title">Tour &amp; Demos</h4>
+                                <p class="sub">Walk them through your content</p>
+                                <p>Have a website or product that could use a walkthrough? Use SlideDeck to created a helpful slider full of images, text and video.</p>
+                                <h5>Use it for:</h5>
+                                <ul>
+                                    <li>Company websites</li>
+                                    <li>Web applications</li>
+                                    <li>Brochure sites</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="case">
+                            <div class="case_image">
+                                <img src="slidedeck-home-images/vertical_use-case-04.png" alt="jquery accordion"/>
+                            </div>
+                            <div class="case_text">
+                                <h4 class="title">Multi-Dimensional Slider</h4>
+                                <p class="sub">Browse nonlinearly, skip slides & more</p>
+                                <p>Create a "choose your own adventure" SlideDeck with the ability to navigate horizontally, vertically and even skip slides. This allows users to skim easily through content or dive deep to learn more.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <!-- Previous and next vertical slide buttons -->
+                    <a href="#previous" class="vertical-prev-next previous">Previous</a>
+                    <a href="#next" class="vertical-prev-next next">Next</a>
+                    <!-- Previous and next vertical slide buttons -->
+                    
+                </dd>
+                <dt>Features</dt>
+                <dd>
+                    <div class="copy wide">
+                        <h4 class="title">Features</h4>
+                        <a href="http://www.slidedeck/features">Learn More About Features</a>
+                        <span class="divider">&nbsp;</span>
+                        <p><strong>SlideDeck is packed with some seriously kick-ass features.</strong> Why waste time developing your own functions when you can utilize our rich API? Why even write code when you can use our Wordpress GUI.</p>
+                    </div>
+                    <img src="slidedeck-home-images/slide-3_features.png" alt="Free SlideShow Software" class="wideImage" />
+                </dd>
+                <dt>Get Started</dt>
+                <dd>
+                    <div class="head">
+                        <h2>Get Started</h2>
+                        <a href="http://www.slidedeck.com/pricing" title="web slider">Download Now!</a>
+                    </div>
+                    <div class="body">
+                        <div class="jquery">
+                            <h3>Jquery Plugin</h3>
+                            <ul>
+                                <li>Complete customization for any website</li>
+                                <li>Packed with powerful features and API</li>
+                            </ul>
+                        </div>
+                        <div class="wordpress">
+                            <h3>WordPress Plugin</h3>
+                            <ul>
+                                <li>Graphical User Interface so you don't  touch code</li>
+                                <li>Smart SlideDecks dynamically display your posts</li>
+                            </ul>
+                        </div>
+                        <p>PRO &amp; Free Light version available for both jQuery and WordPress</p>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+        <script type="text/javascript">
+            
+            /** Initiate the SlideDeck */
+            $('.skin-slidedeck dl.slidedeck').slidedeck({
+                scroll: 'stop'
+            }).
+            
+            /**
+             * Take advantage of the loaded() method of the SlideDeck library to move the vertical navigation
+             * for from the slide area to the spine area of that slide
+             */
+            loaded(function(){
+                $('.skin-slidedeck .slide .verticalSlideNav').each(function(){
+                    $(this).parents('dd.slide').prevAll('dt.spine:first').append(this);
+                });
+            }).
+            
+            /** Enable vertical slides */
+            vertical({
+                before: function(deck){
+                    if(deck.current == 0){
+                        $(deck.navChildren.context).find('a.vertical-prev-next.previous').hide();
+                    } else {
+                        $(deck.navChildren.context).find('a.vertical-prev-next.previous')[0].style.display = "";
+                    }
+                    if(deck.current == (deck.slides.length - 1)){
+                        $(deck.navChildren.context).find('a.vertical-prev-next.next').hide();
+                    } else {
+                        $(deck.navChildren.context).find('a.vertical-prev-next.next')[0].style.display = "";
+                    }
+                },
+                complete: function(deck){
+                    if(deck.current == 0){
+                        $(deck.navChildren.context).find('a.vertical-prev-next.previous').hide();
+                    } else {
+                        $(deck.navChildren.context).find('a.vertical-prev-next.previous')[0].style.display = "";
+                    }
+                    if(deck.current == (deck.slides.length - 1)){
+                        $(deck.navChildren.context).find('a.vertical-prev-next.next').hide();
+                    } else {
+                        $(deck.navChildren.context).find('a.vertical-prev-next.next')[0].style.display = "";
+                    }
+                }
+            });
+            
+            $('.skin-slidedeck a.vertical-prev-next').bind('click', function(event){
+                event.preventDefault();
+                switch(this.href.split('#')[1]){
+                    case "previous":
+                        $('.skin-slidedeck .slidedeck').slidedeck().vertical().prev();
+                    break;
+                    case "next":
+                        $('.skin-slidedeck .slidedeck').slidedeck().vertical().next();
+                    break;
+                }
+            });
+            
+            /** Hide the previous vertical slide button */
+            $('.skin-slidedeck dl.slidedeck a.vertical-prev-next.previous').hide();
+             
+            $(document).ready(function(){
+            
+                /**
+                 * Add goTo() click events to the image grid in slide 1 of the vertical slides on 
+                 * slide 2 of the horizontal slides in the home page SlideDeck
+                 */
+                $('.skin-slidedeck .slidedeck dd.slide_2 .use-cases img').each(function(index){
+                    $(this).click(function(){
+                        $('.skin-slidedeck .slidedeck').slidedeck().vertical().goTo(index+2);
+                    });
+                });
+            
+            });
+            
+        </script>
+        <noscript>
+            <p>Powered By <a href="http://www.slidedeck.com" title="Visit SlideDeck.com">SlideDeck jQuery Slider</a></p>
+        </noscript>
+    </body>
+</html>

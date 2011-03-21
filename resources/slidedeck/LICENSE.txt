@@ -1,0 +1,118 @@
+Software License Agreement for SlideDeck 1.x - 01-11-2010
+Copyright (c) 2010 digital-telepathy (http://www.dtelepathy.com)
+
+More information on this project:
+http://www.slidedeck.com/
+
+PLEASE READ THIS SOFTWARE LICENSE AGREEMENT (“LICENSE”) CAREFULLY
+BEFORE USING THE SLIDEDECK SOFTWARE.  BY USING THE SLIDEDECK
+SOFTWARE, YOU ARE AGREEING TO BE BOUND BY THE TERMS OF THIS
+LICENSE.  IF YOU DO NOT AGREE TO THE TERMS OF THIS LICENSE, DO
+NOT USE THE SOFTWARE.
+
+1.	General.  The software and documentation accompanying this
+License (the “Software”), whether on disk, memory or an any other
+media or in any other form (“SLIDEDECK”) are licensed, not sold,
+on a non-exclusive basis to you by digital-telepathy, Inc. (“dt”
+or “digital-telepathy”) for use only under the terms of this
+License, and dt reserves all rights not expressly granted to you.
+No other rights, intellectual property or otherwise, are granted
+by this license.
+
+2.	Permitted License Uses and Restrictions: Pro Version. For the
+Pro version of SlideDeck, you may use the Software as many times
+as desired for your personal or business purposes.  Modification,
+decompilation, duplication and reverse-engineering is not
+recommended – if any modifications are made to the provided code,
+no support will be offered. No distribution, redistribution or
+sublicensing of the Software  is permitted for any reason . The
+Software may not be used for, or in conjunction with, any illegal
+services, products or practices whatsoever.
+
+3.	Transfer. You may not rent, lease, sublicense, lend or sell
+any version of the SlideDeck Software to any other person or
+business.
+
+4.	 Consent to Use of Data. You agree that digital-telepathy,
+Inc. and its subsidiaries may collect and use technical and
+related information about the server and domain the Software is
+installed on, as well as your visitors and their interactions
+with the Software. dt may use this information, to improve our
+products and services and as a basis for providing statistical
+analytics for our users.
+
+5.	Termination.  This License is effective until terminated. 
+Your rights under this License will terminate automatically
+without notice from dt if you fail to comply with any of the
+terms of this License.  Upon termination of this License, you
+shall cease all use of the SlideDeck Software and destroy all
+copies, full or partial, of the SlideDeck software.
+
+6.	Disclaimer of Warranties. YOU EXPRESSLY ACKNOWLEDGE AND AGREE
+THAT THE USE OF THE SLIDEDECK SOFTWARE IS AT YOUR SOLE RISK AND
+THAT RISK IS ACCEPTABLE TO YOU. THE SOFTWARE IS PROVIDED “AS IS,”
+WITH ALL FAULTS AND WITHOUT WARRANTY OF ANY KIND.
+DIGITAL-TELEPATHY HEREBY DISCLAIM ALL WARRANTIES AND CONDITIONS
+WITH RESPECT TO THE SLIDEDECK SOFTWARE, EITHER EXPRESS, IMPLIED
+OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES AND/OR CONDITIONS OF MERCHANTABILITY, OF SATISFACTORY
+QUALITY , OF FITNESS FOR A PARTICULAR PURPOSE, OF ACCURACY AND
+NON-INFRIGEMENT OF THIRD-PARTY RIGHTS.  DT DOES NOT WARRANT THAT
+THE SLIDEDECK SOFTWARE WILL MEET YOUR REQUIREMENTS, WILL BE
+UNINTERRUPTED OR ERROR-FREE, OR THAT THE SOFTWARE WILL BE
+COMPATIBLE WITH OTHER THIRD PARTY SOFTWARE, SERVERS OR PLATFORMS.
+THIS AGREEMENT SUPERCEDES ALL CLAIMS MADE ORALLY OR IN WRITING
+OUTSIDE OF THIS AGREEMENT.
+
+7.	Limitation on Liability. TO THE EXTENT NOT PROHIBITED BY LAW,
+IN NO EVENT SHALL DIGITAL-TELEPATHY BE LIABLE FOR PERSONAL
+INJURY, OR ANY INCIDENTAL, SPECIAL INDIRECT OR CONSEQUENTIAL
+DAMAGES WHATSOEVER, INCLUDING, WITHOUT LIMITATION, DAMAGES FOR
+LOSS OF PROFITS, LOSS OF DATA, BUSINESS INTERRUPTION OR ANY OTHER
+COMMERCIAL DAMAGES OR LOSSES, ARISING OUT OF OR RELATED TO YOUR
+USE OR INABILITY TO USE THE SLIDEDECK SOFTWARE, HOWEVER CAUSED,
+REGARDLESS OF THE THEORY OF LIABILITY (CONTRACT, TORT OR
+OTHERWISE). Some jurisdictions do not allow for the limitation of
+liability for personal injury or of incidental or consequential
+damages, so this limitation may not apply to you.  In no event
+shall dt’s aggregate liability to you for all damages exceed the
+amount paid for the software license (other than as may be
+required by applicable law in certain jurisdictions).
+
+8.	Export Restrictions. You may not use or otherwise
+export/re-export SlideDeck except as authorized by United States
+law.  SlideDeck may not be exported or re-exported  to (1) any
+U.S. embargoed countries or (2) to anyone on the U.S. Treasury
+Department’s list of Specially Designated Nationals or the U.S.
+Department of Commerce Denied Persons List or Entity List. By
+using the SlideDeck software, you represent and warrant that you
+are not located in any country or on any such list.
+
+9.	Injunctive Relief. Because of the proprietary nature of the
+SlideDeck software, you understand that dt will suffer
+irreparable injury in the event that you fail to comply with the
+terms of this Agreement, and that monetary damages may be
+inadequate to compensate dt for such breach.  Accordingly, you
+agree that dt will, in addition to any other remedies available
+to it at law or in equity be entitled to injunctive relief to
+enforce the terms of this Agreement.
+
+10.	Governing Law. This License will be governed and construed in
+accordance with the laws of the State of California. If, for any
+reason, a court of competent jurisdiction finds any provision, or
+portion thereof, to be unenforceable, the remainder of this
+License shall continue in full force and effect.
+
+11.	Refunds.  SlideDeck Pro is sold “As Is,” and there are no
+refunds.  All software has bugs, and if you discover one, please
+let us know.  We’ll do our best to fix them in later releases.
+
+12.	Platform Compatibility.  SlideDeck supports Firefox 3.1+,
+IE7+, Safari 3+ and Chrome 2+
+
+13.	Complete Agreement. This License constitutes the entire
+agreement between the parties with respect to the possession and
+use of SlideDeck.  It supersedes all prior agreements and
+understandings regarding SlideDeck.  No modification or amendment
+of this License will be binding unless provided in writing, and
+signed by an authorized signatory of digital-telepathy.

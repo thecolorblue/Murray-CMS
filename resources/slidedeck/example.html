@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>SlideDeck v.1.2.1 PRO Example</title>
+
+        <!-- Include jQuery first. -->
+		<script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+
+        <!-- Include the below script, Copyright 2010, Brandon Aaron (http://brandonaaron.net/) for scrollwheel support. -->
+        <script type="text/javascript" src="jquery-mousewheel/jquery.mousewheel.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="slidedeck.skin.css" media="screen,handheld" />
+        <!-- Styles for the skin that only load for Internet Explorer -->
+        <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="slidedeck.skin.ie.css" media="screen,handheld" />
+        <![endif]-->
+		
+        <!-- Include the SlideDeck jQuery script. -->
+		<script type="text/javascript" src="slidedeck.jquery.js"></script>
+        
+        <style type="text/css">
+            #slidedeck_frame {
+                width: 901px;
+                height: 300px;
+            }        
+        </style>
+	</head>
+	<body>
+		<div id="slidedeck_frame" class="skin-slidedeck">
+			<dl class="slidedeck">
+				<dt>Slide 1</dt>
+				<dd>Slide content</dd>
+				<dt>Slide 2</dt>
+				<dd>
+                    <ul class="slidesVertical">
+                        <li><p><strong>Vertical Slide 1</strong></p></li>
+                        <li><p><strong>Vertical Slide 2</strong></p></li>
+                        <li><p><strong>Vertical Slide 3</strong></p></li>
+                        <li><p><strong>Vertical Slide 4</strong></p></li>
+                        <li><p><strong>Vertical Slide 5</strong></p></li>
+                    </ul>
+				</dd>
+				<dt>Slide 3</dt>
+				<dd>Slide content</dd>
+				<dt>Slide 4</dt>
+				<dd>Slide content</dd>
+				<dt>Slide 5</dt>
+				<dd>Slide content</dd>
+			</dl>
+		</div>
+        
+		<script type="text/javascript">
+            /* Initiate the SlideDeck */
+    		$('.skin-slidedeck dl.slidedeck').slidedeck().vertical();
+		</script>
+	    <!-- Help support SlideDeck! Place this noscript tag on your page when you deploy a SlideDeck to provide a link back! -->
+		<noscript>
+		     <p>Powered By <a href="http://www.slidedeck.com" title="Visit SlideDeck.com">SlideDeck</a></p>
+        </noscript>
+	</body>
+</html>
