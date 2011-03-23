@@ -24,7 +24,9 @@ app.get('/login', function(req,res){
   res.render('loginform.jade');
 });
 app.post('/login', function(req,res){
+  
   res.send('You logged in!');  
 });
+
 app.listen(3000);
 console.log('running at localhost:3000');
