@@ -1,0 +1,4 @@
+- each post in posts h3(style="display:inline") #{post.title}
+  h4(style="display:inline") writen by: #{post.author} p #{post.body}
+  p #{post.date}
+  
