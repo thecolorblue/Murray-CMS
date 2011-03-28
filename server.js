@@ -31,20 +31,20 @@ app.get('/', function(req, res){
     });
   });
 });
+app.get('/tag/:tag', function(req,res){
+  res.send('looking for tags: ' + req.params.tag);
+});
 
 app.get('/new', function(req,res){
   console.log(req);
   res.render('newpost.jade');  
 });
 app.post('/brandnew', function(req, res){
-  console.log(req.body);
-  function postPrep(array){
-    array.date = new Date();
-    array.user = req.cookies.user;
-  };
-  var prepedPost = postPrep(req.body);
-  console.log(prepedPost);
-  posts('local.local').save(prepedPost);
+  var blogpost = req.body;
+  blogpost.date = new Date();
+  blogpost.user = req.cookies.user;
+  console.log(blogpost);
+  posts('local.local').save(blogpost);
   res.send('saved new post');
 });
 
@@ -73,7 +73,7 @@ app.post('/login', function(req,res){
 });
 
 app.get('/logout', function(req,res){
-  res.clearCookie('loggedin');
+  res.clearCookie('loggedin','user' );
   res.send('logged out');
 });
 
