@@ -2,5 +2,13 @@
 html
   head
     title Blog Posts
+    script(rel='jquery.min.js',type='text/javascript')
+    link(rel='stylesheet', href='960.css')
   body
-    #container!= body
+    div.container_12
+      div.grid_12
+        p header
+      div.grid_8
+        #container!= body
+      div.grid_4
+        p sidebar
