@@ -11,7 +11,11 @@ app.get('/', function(req, res){
   murray.getposts(req,res);
 });
 app.get('/tag/:tag', function(req,res){
-  res.send('looking for tags: ' + req.params.tag);
+  if(murray.isIn(req.cookies) == true){
+    res.send('looking for tags: ' + req.params.tag);
+  } else {
+    res.send('sorry, not logged in.');
+  }
 });
 app.get('/user/:user',function(req,res){
   res.send('looking for posts by: ' + req.params.user);

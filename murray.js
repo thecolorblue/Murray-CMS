@@ -99,3 +99,11 @@ exports.logout = function(){
   res.clearCookie('loggedin','user' );
   res.send('logged out');
 };
+
+exports.isIn = function(cookie, type){
+  if(cookie.loggedin == 1){
+    return true;
+  } else {
+    return false;
+  }
+};
