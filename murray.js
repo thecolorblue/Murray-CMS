@@ -12,18 +12,30 @@ var db = new Db('local', new Server('127.0.0.1', 27017, {}));
  *  sends first 8 to be rendered reverse sorted by date
  *  checks if user is logged in
  */
-exports.getposts = function(req,res){
+exports.getposts = function(req,res,options,callback){
+  if(req.params.user != 'undefined'){
+    var user = req.params.user;
+  } else {
+    var user = '';
+  }
   db.open(function(err, db){
     db.collection('local', function(err, collection){
-      collection.find({}, {'limit':8,'sort':[['date', -1]]}, function(err, cursor){
+      collection.find({
+        'user': user
+      }, 
+      {'limit':8,'sort':[['date', -1]]}, function(err, cursor){
         cursor.toArray(function(err, posted){
           if(req.cookies.loggedin == 1){
             var logged = 'you are logged in';
           } else {
             var logged = 'you should log in';
           }
-          
+          if(callback != ''){
           res.render('index.jade', {posts: posted, logged: logged});
+          } else {
+            callback();
+          }
+          console.log(user);
           db.close();
         });
       });
@@ -100,7 +112,11 @@ exports.logout = function(){
   res.send('logged out');
 };
 
-
+/*
+ *  isIn
+ *  Checks to see if the user is logged in
+ *  returns the callback given
+ */
 exports.isIn = function(cookie, callback){
   if(cookie.loggedin == 1){
     callback();

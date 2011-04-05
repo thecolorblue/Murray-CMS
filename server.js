@@ -11,12 +11,10 @@ app.get('/', function(req, res){
   murray.getposts(req,res);
 });
 app.get('/tag/:tag', function(req,res){
-  murray.isIn(req.cookies,function(){
-    res.send('looking for tags: ' + req.params.tag);    
-  });
+  res.send('looking for tags: ' + req.params.tag);    
 });
 app.get('/user/:user',function(req,res){
-  res.send('looking for posts by: ' + req.params.user);
+  murray.getposts(req,res,{user:req.params.user});
 });
 app.get('/archive/:date',function(req,res){
   res.send('looking for posts in:' + req.params.user);
@@ -29,19 +27,19 @@ app.get('/file/:file', function(req,res){
 });
 
 app.get('/admin/posts', function(req,res){
-  if (user.type === 'admin'){
+  murray.isIn(req.cookies,function(){
     res.send('page showing all posts in a table.');
-  }
+  });
 });
 app.get('/admin/users', function(req,res){
-  if(user.type === 'admin'){
+  murray.isIn(req.cookies,function(){
     res.send('page to administer users on blog.');  
-  }
+  });
 });
 app.get('/admin/settings', function(req,res){
-  if(user.type === 'admin'){
+  murray.isIn(req.cookies,function(){
     res.send('page to edit and view blog settings');
-  }
+  });
 });
 
 app.get('/new', function(req,res){
@@ -49,10 +47,14 @@ app.get('/new', function(req,res){
   res.render('newpost.jade');  
 });
 app.post('/create/post', function(req, res){
-  murray.createpost(req,res,posts);
+  murray.isIn(req.cookies,function(){
+    murray.createpost(req,res,posts);
+  });
 });
 app.post('/create/user', function(req,res){
-  res.send('user ' + res.body.user + ' created.');
+  murray.isIn(req.cookies,function(){
+    res.send('user ' + res.body.user + ' created.');
+  });
 });
 
 app.get('/login', function(req,res){
