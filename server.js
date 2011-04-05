@@ -4,7 +4,6 @@ var app = require('express').createServer(),
     Connection = require('mongodb').Connection,
     Server = require('mongodb').Server,
     BSON = require('mongodb').BSONNative,
-    posts = require('mongous').Mongous,
     murray = require('./murray.js');
 
 app.use(express.bodyParser());

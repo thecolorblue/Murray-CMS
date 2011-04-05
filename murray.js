@@ -27,14 +27,18 @@ exports.createpost = function(db,req,res,posts){
           blogpost.date = new Date();
           blogpost.user = req.cookies.user;
           console.log(blogpost);
-          posts('local.local').save(blogpost);
-          res.send('saved new post');
-          collection.update(
-            {'postcount':'num'},
-            {'postcount':'num','actual':blogpost.pid}, 
-            function(err,docs){
-              db.close();
-          });            
+          db.collection('local',function(err,collection){
+              collection.insert([blogpost],function(err,docs){
+                res.send('saved new post');
+                collection.update(
+                  {'postcount':'num'},
+                  {'postcount':'num','actual':blogpost.pid}, 
+                  function(err,docs){
+                    db.close();
+                  }
+                );            
+            });
+          });
         });
       });
     });
