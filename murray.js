@@ -100,10 +100,11 @@ exports.logout = function(){
   res.send('logged out');
 };
 
-exports.isIn = function(cookie, type){
+
+exports.isIn = function(cookie, callback){
   if(cookie.loggedin == 1){
-    return true;
+    callback();
   } else {
-    return false;
+    res.send('you need to login for this');
   }
 };
