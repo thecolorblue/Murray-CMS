@@ -1,4 +1,9 @@
 //  Murray CMS Helpers
+var Db = require('mongodb').Db,
+    Connection = require('mongodb').Connection,
+    Server = require('mongodb').Server,
+    BSON = require('mongodb').BSONNative;
+var db = new Db('local', new Server('127.0.0.1', 27017, {}));
 
 
 /*
@@ -7,7 +12,7 @@
  *  sends first 8 to be rendered reverse sorted by date
  *  checks if user is logged in
  */
-exports.getposts = function(db,req,res){
+exports.getposts = function(req,res){
   db.open(function(err, db){
     db.collection('local', function(err, collection){
       collection.find({}, {'limit':8,'sort':[['date', -1]]}, function(err, cursor){
@@ -31,7 +36,7 @@ exports.getposts = function(db,req,res){
  *  adds date and pid to new post
  *  saves new post in local
  */
-exports.createpost = function(db,req,res,posts){
+exports.createpost = function(req,res,posts){
   var blogpost = req.body;
   db.open(function(err, db){
     db.collection('settings', function(err, collection){
@@ -64,7 +69,7 @@ exports.createpost = function(db,req,res,posts){
  *  Handles checking username and password is correct
  *  and creates cookies
  */
-exports.login = function(db,req,res){
+exports.login = function(req,res){
   db.open(function(err, db){
     db.collection('users', function(err, collection){
       collection.find({}, function(err, cursor){
