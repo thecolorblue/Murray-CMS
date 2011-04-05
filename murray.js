@@ -1,3 +1,12 @@
+//  Murray CMS Helpers
+
+
+/*
+ *  Get Posts
+ *  pulls all of the posts in local collection
+ *  sends first 8 to be rendered reverse sorted by date
+ *  checks if user is logged in
+ */
 exports.getposts = function(db,req,res){
   db.open(function(err, db){
     db.collection('local', function(err, collection){
@@ -16,6 +25,12 @@ exports.getposts = function(db,req,res){
     });
   });
 };
+/*
+ *  Create Post
+ *  Looks for postcount for pid of new post
+ *  adds date and pid to new post
+ *  saves new post in local
+ */
 exports.createpost = function(db,req,res,posts){
   var blogpost = req.body;
   db.open(function(err, db){
@@ -44,6 +59,11 @@ exports.createpost = function(db,req,res,posts){
     });
   });
 };
+/*
+ *  Login
+ *  Handles checking username and password is correct
+ *  and creates cookies
+ */
 exports.login = function(db,req,res){
   db.open(function(err, db){
     db.collection('users', function(err, collection){
@@ -66,6 +86,10 @@ exports.login = function(db,req,res){
     });
   });
 };
+/*
+ *  Logout
+ *  clears out loggedin and user cookie
+ */
 exports.logout = function(){
   res.clearCookie('loggedin','user' );
   res.send('logged out');
