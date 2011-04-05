@@ -1,5 +1,4 @@
-var connect = require('connect'),
-    app = require('express').createServer(),
+var app = require('express').createServer(),
     express = require('express'),
     Db = require('mongodb').Db,
     Connection = require('mongodb').Connection,
