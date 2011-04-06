@@ -10,17 +10,13 @@ app.use(express.static(__dirname + '/resources'));
 app.get('/', function(req, res){
   murray.getposts(req,res);
 });
-app.get('/tag/:tag', function(req,res){
-  res.send('looking for tags: ' + req.params.tag);    
-});
-app.get('/user/:user',function(req,res){
-  murray.getposts(req,res,{user:req.params.user});
+app.get('/:id/:value',function(req,res){
+  var obj = {};
+  obj[req.params.id] = req.params.value;
+  murray.getposts(req,res,obj);
 });
 app.get('/archive/:date',function(req,res){
   res.send('looking for posts in:' + req.params.user);
-});
-app.get('/page/:page', function(req,res){
-  res.send('looking for page: ' + req.params.page);
 });
 app.get('/file/:file', function(req,res){
   res.send('looking for file: ' + req.params.file);

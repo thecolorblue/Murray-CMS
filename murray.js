@@ -13,16 +13,15 @@ var db = new Db('local', new Server('127.0.0.1', 27017, {}));
  *  checks if user is logged in
  */
 exports.getposts = function(req,res,options,callback){
-  if(req.params.user != 'undefined'){
-    var user = req.params.user;
-  } else {
-    var user = '';
+  var filters = {};
+  if(options != undefined){
+    filters = options;
+    console.log(filters);
   }
+  
   db.open(function(err, db){
     db.collection('local', function(err, collection){
-      collection.find({
-        'user': user
-      }, 
+      collection.find(filters, 
       {'limit':8,'sort':[['date', -1]]}, function(err, cursor){
         cursor.toArray(function(err, posted){
           if(req.cookies.loggedin == 1){
@@ -35,7 +34,6 @@ exports.getposts = function(req,res,options,callback){
           } else {
             callback();
           }
-          console.log(user);
           db.close();
         });
       });
