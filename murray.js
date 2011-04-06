@@ -15,14 +15,16 @@ var db = new Db('local', new Server('127.0.0.1', 27017, {}));
 exports.getposts = function(req,res,options,callback){
   var filters = {};
   if(options != undefined){
+    if(options.pid != undefined){
+      options.pid = parseFloat(options.pid);
+    }
     filters = options;
     console.log(filters);
   }
-  
+  var config = {'limit':8,'sort':[['date', -1]]};
   db.open(function(err, db){
     db.collection('local', function(err, collection){
-      collection.find(filters, 
-      {'limit':8,'sort':[['date', -1]]}, function(err, cursor){
+      collection.find(filters,config, function(err, cursor){
         cursor.toArray(function(err, posted){
           if(req.cookies.loggedin == 1){
             var logged = 'you are logged in';
