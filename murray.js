@@ -27,9 +27,9 @@ exports.getposts = function(req,res,options,callback){
       collection.find(filters,config, function(err, cursor){
         cursor.toArray(function(err, posted){
           if(req.cookies.loggedin == 1){
-            var logged = 'you are logged in';
+            var logged = true;
           } else {
-            var logged = 'you should log in';
+            var logged = false;
           }
           if(callback != ''){
           res.render('index.jade', {posts: posted, logged: logged});
