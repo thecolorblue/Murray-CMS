@@ -40,7 +40,7 @@ app.get('/admin/settings', function(req,res){
 
 app.get('/new', function(req,res){
   console.log(req);
-  res.render('newpost.jade');  
+  res.render('newpost.jade',{posts: '', logged: ''});  
 });
 app.post('/create/post', function(req, res){
   murray.isIn(req.cookies,function(){
@@ -54,7 +54,7 @@ app.post('/create/user', function(req,res){
 });
 
 app.get('/login', function(req,res){
-  res.render('loginform.jade');
+  res.render('loginform.jade',{posts: '', logged: ''});
 });
 app.post('/login', function(req,res){
   murray.login(req,res);

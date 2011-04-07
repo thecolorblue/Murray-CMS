@@ -29,7 +29,7 @@ exports.getposts = function(req,res,options,callback){
           if(req.cookies.loggedin == 1){
             var logged = true;
           } else {
-            var logged = false;
+            var logged = false ;
           }
           if(callback != ''){
           res.render('index.jade', {posts: posted, logged: logged});
@@ -50,25 +50,30 @@ exports.getposts = function(req,res,options,callback){
  */
 exports.createpost = function(req,res,newpost){
   var blogpost = req.body;
+  console.log(req.body);
   db.open(function(err, db){
     db.collection('settings', function(err, collection){
-      collection.find({'postcount':'num'}, function(err, cursor){
+      collection.find({}, function(err, cursor){
         cursor.toArray(function(err, posted){
-          var postnum = posted[0].actual;
-          blogpost.pid = postnum + 1;
+          var postnum = posted[0].postcount;
+          console.log(posted[0].postcount);
+          blogpost.pid = ++postnum;
           blogpost.date = new Date();
           blogpost.user = req.cookies.user;
           console.log(blogpost);
           db.collection('posts',function(err,collection){
-              collection.insert([blogpost],function(err,docs){
-                res.send('saved new post');
-                collection.update(
-                  {'postcount':'num'},
-                  {'postcount':'num','actual':blogpost.pid}, 
+            collection.insert([blogpost],function(err,docs){
+              db.collection('settings',function(err,collection){
+                collection.update({name:'postcounter'},
+                  {$inc:{postcount:1}}, {safe:true},
                   function(err,docs){
+                    console.log(err);
+                    console.log(docs);
                     db.close();
+                    res.send('saved new post\n</p><a href="/">Head Back Home</a></p>\n');
                   }
                 );            
+              });
             });
           });
         });
@@ -92,7 +97,7 @@ exports.login = function(req,res){
                 { path: '/', expires: new Date(Date.now() + 900000), httpOnly: true });
               res.cookie('user', req.body.name, 
                 { path: '/', expires: new Date(Date.now() + 900000), httpOnly: true });
-              res.send('You logged in!');  
+              res.send('You logged in!\n</p><a href="/">Head Back Home</a></p>');  
             } else {
               res.send('sorry, try again');
             }

@@ -2,10 +2,10 @@ p would you like to login?
   <a href='/login' title='login page'>Login</a> 
 p #{logged}
 - each post in posts
-  h3(style="display:inline") #{post.title}
-  h4(style="display:inline") writen by: #{post.author}
-  p #{post.body}
-  p #{post.date}
+  div.post(style='position:relative')
+    h3(style="display:inline") #{post.title}
+    h4(style="display:inline") writen by: #{post.user}
+    p #{post.body}
+    p #{post.date}
+    p.pid #{post.pid}
   <hr/>  
-- if (logged == true)
-  script(src='/admin.js',type='text/javascript')

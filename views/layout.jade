@@ -4,6 +4,7 @@ html
     title Blog Posts
     script(src='/jquery.min.js',type='text/javascript')
     link(rel='stylesheet', href='/960.css')
+    link(rel='stylesheet', href='/css.css')
   body
     div.container_12
       div.grid_12
@@ -14,3 +15,7 @@ html
         p sidebar
       div.grid_12
         p footer
+        - if (logged != '')
+          - if (logged == true)
+            script(src='/admin.js',type='text/javascript')
+
