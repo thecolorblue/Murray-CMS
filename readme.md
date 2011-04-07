@@ -7,21 +7,14 @@ Very early version of a blog using nodejs and mongodb. It is designed to be simp
 You need to setup your mongodb by hand. This isn't as tricky as it sounds since there is not much going on right now. 
 after you enter mongo:
 
-use murray // opens murry db
-
-// create settings
-
-settings = {postcount:'num',actual:0}
-
-db.settings.save(settings)
-
-// create first user
-
-// the only thing that is really required is name and pass
-
-admin = {id:1,name:'admin',pass:'secretpassword','email':'you@yourdomain.com'}
-
-db.users.save(admin)
+    use murray // opens murry db
+    // create settings
+    settings = {postcount:'num',actual:0}
+    db.settings.save(settings)
+    // create first user
+    // the only thing that is really required is name and pass
+    admin = {id:1,name:'admin',pass:'secretpassword','email':'you@yourdomain.com'}
+    db.users.save(admin)
 
 
 And you should be all set! Mongo should create everything else you need as you go along. 
