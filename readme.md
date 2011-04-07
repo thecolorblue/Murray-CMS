@@ -9,7 +9,7 @@ after you enter mongo:
 
     use murray // opens murry db
     // create settings
-    settings = {postcount:'num', actual:0}
+    settings = {name:'postcounter', postcounter:0}
     db.settings.save(settings)
     // create first user
     // the only thing that is really required is name and pass
