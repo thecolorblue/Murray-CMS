@@ -3,27 +3,27 @@ var Db = require('mongodb').Db,
     Connection = require('mongodb').Connection,
     Server = require('mongodb').Server,
     BSON = require('mongodb').BSONNative;
-var db = new Db('local', new Server('127.0.0.1', 27017, {}));
+var db = new Db('murray', new Server('127.0.0.1', 27017, {}));
 
 
 /*
  *  Get Posts
- *  pulls all of the posts in local collection
+ *  pulls all of the posts in 'posts' collection
  *  sends first 8 to be rendered reverse sorted by date
  *  checks if user is logged in
  */
 exports.getposts = function(req,res,options,callback){
+
   var filters = {};
   if(options != undefined){
     if(options.pid != undefined){
       options.pid = parseFloat(options.pid);
     }
     filters = options;
-    console.log(filters);
   }
   var config = {'limit':8,'sort':[['date', -1]]};
   db.open(function(err, db){
-    db.collection('local', function(err, collection){
+    db.collection('posts', function(err, collection){
       collection.find(filters,config, function(err, cursor){
         cursor.toArray(function(err, posted){
           if(req.cookies.loggedin == 1){
@@ -46,9 +46,9 @@ exports.getposts = function(req,res,options,callback){
  *  Create Post
  *  Looks for postcount for pid of new post
  *  adds date and pid to new post
- *  saves new post in local
+ *  saves new post in murray.posts
  */
-exports.createpost = function(req,res,posts){
+exports.createpost = function(req,res,newpost){
   var blogpost = req.body;
   db.open(function(err, db){
     db.collection('settings', function(err, collection){
@@ -59,7 +59,7 @@ exports.createpost = function(req,res,posts){
           blogpost.date = new Date();
           blogpost.user = req.cookies.user;
           console.log(blogpost);
-          db.collection('local',function(err,collection){
+          db.collection('posts',function(err,collection){
               collection.insert([blogpost],function(err,docs){
                 res.send('saved new post');
                 collection.update(
@@ -85,9 +85,9 @@ exports.login = function(req,res){
   db.open(function(err, db){
     db.collection('users', function(err, collection){
       collection.find({}, function(err, cursor){
-        cursor.toArray(function(err, posted){
-          for (var i = 0; i < posted.length; i++){
-            if(posted[i].name == req.body.name && posted[i].pass == req.body.password){
+        cursor.toArray(function(err, users){
+          for (var i = 0; i < users.length; i++){
+            if(users[i].name == req.body.name && users[i].pass == req.body.password){
               res.cookie('loggedin', '1', 
                 { path: '/', expires: new Date(Date.now() + 900000), httpOnly: true });
               res.cookie('user', req.body.name, 

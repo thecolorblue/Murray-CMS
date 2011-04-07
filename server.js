@@ -44,7 +44,7 @@ app.get('/new', function(req,res){
 });
 app.post('/create/post', function(req, res){
   murray.isIn(req.cookies,function(){
-    murray.createpost(req,res,posts);
+    murray.createpost(req,res);
   });
 });
 app.post('/create/user', function(req,res){
