@@ -1,11 +1,12 @@
-p would you like to login? 
-  <a href='/login' title='login page'>Login</a> 
+- if (logged == false)
+  p would you like to login? <a href='/login' title='login page'>Login</a> 
+
 p #{logged}
 - each post in posts
   div.post(style='position:relative')
-    h3(style="display:inline") #{post.title}
-    h4(style="display:inline") writen by: #{post.user}
-    p #{post.body}
-    p #{post.date}
+    h3.title #{post.title}
+    h4.author writen by: #{post.user}
+    p.body #{post.body}
+    p.date #{post.date}
     p.pid #{post.pid}
   <hr/>  

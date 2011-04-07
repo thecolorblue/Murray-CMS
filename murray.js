@@ -29,13 +29,14 @@ exports.getposts = function(req,res,options,callback){
           if(req.cookies.loggedin == 1){
             var logged = true;
           } else {
-            var logged = false ;
+            var logged = false;
           }
           if(callback != ''){
           res.render('index.jade', {posts: posted, logged: logged});
           } else {
             callback();
           }
+          console.log(logged);
           db.close();
         });
       });
@@ -112,7 +113,7 @@ exports.login = function(req,res){
  *  Logout
  *  clears out loggedin and user cookie
  */
-exports.logout = function(){
+exports.logout = function(req,res){
   res.clearCookie('loggedin','user' );
   res.send('logged out');
 };
@@ -126,6 +127,6 @@ exports.isIn = function(cookie, callback){
   if(cookie.loggedin == 1){
     callback();
   } else {
-    res.send('you need to login for this');
+    console.log('you need to log in for this');
   }
 };

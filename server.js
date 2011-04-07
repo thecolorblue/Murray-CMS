@@ -61,7 +61,7 @@ app.post('/login', function(req,res){
 });
 
 app.get('/logout', function(req,res){
-  murray.logout;
+  murray.logout(req,res);
 });
 
 app.listen(3000);
