@@ -1,6 +1,7 @@
 var app = require('express').createServer(),
     express = require('express'),
-    murray = require('./murray.js');
+    murray = require('./murray.js'),
+    fs = require('fs');
 
 app.use(express.bodyParser());
 app.use(express.cookieParser());
@@ -62,6 +63,13 @@ app.post('/login', function(req,res){
 
 app.get('/logout', function(req,res){
   murray.logout(req,res);
+});
+
+app.get('/test', function(req,res){
+  var folder = './murray/plugins';
+  murray.plugins(folder,function(err,files){
+
+  });
 });
 
 app.listen(3000);

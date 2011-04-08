@@ -2,9 +2,10 @@
 var Db = require('mongodb').Db,
     Connection = require('mongodb').Connection,
     Server = require('mongodb').Server,
-    BSON = require('mongodb').BSONNative;
+    BSON = require('mongodb').BSONNative,
+    fs = require('fs');
+    
 var db = new Db('murray', new Server('127.0.0.1', 27017, {}));
-
 
 /*
  *  Get Posts
@@ -13,7 +14,6 @@ var db = new Db('murray', new Server('127.0.0.1', 27017, {}));
  *  checks if user is logged in
  */
 exports.getposts = function(req,res,options,callback){
-
   var filters = {};
   if(options != undefined){
     if(options.pid != undefined){
@@ -130,3 +130,18 @@ exports.isIn = function(cookie, callback){
     console.log('you need to log in for this');
   }
 };
+
+exports.plugins = function(folder,callback){
+  fs.readdir(folder,function(err,files){
+    console.log(files);
+    for (var i = 0;i < files.length;i++){
+      var filetype = /\Wjs$/;
+      if (filetype.test(files[i]) == true){
+        var title = files[i].replace(filetype, '');
+        title = require(folder + '/' + files[i]);
+        console.log(murray.ext);
+      }
+    }
+  });
+};
+exports.ext = [];
