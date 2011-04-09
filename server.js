@@ -1,6 +1,6 @@
 var app = require('express').createServer(),
     express = require('express'),
-    murray = require('./murray.js'),
+    murray = require('./murray'),
     fs = require('fs');
 
 app.use(express.bodyParser());
