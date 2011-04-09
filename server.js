@@ -67,8 +67,8 @@ app.get('/logout', function(req,res){
 
 app.get('/test', function(req,res){
   var folder = './murray/plugins';
-  murray.plugins(folder,function(err,files){
-
+  murray.plugins(folder,function(){
+    console.log(murray.ext.extend.extend);
   });
 });
 

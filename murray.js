@@ -133,15 +133,14 @@ exports.isIn = function(cookie, callback){
 
 exports.plugins = function(folder,callback){
   fs.readdir(folder,function(err,files){
-    console.log(files);
     for (var i = 0;i < files.length;i++){
       var filetype = /\Wjs$/;
       if (filetype.test(files[i]) == true){
         var title = files[i].replace(filetype, '');
-        title = require(folder + '/' + files[i]);
-        console.log(murray.ext);
+        exports.ext[title] = require(folder + '/' + files[i]);
       }
     }
+    callback();
   });
 };
 exports.ext = [];
