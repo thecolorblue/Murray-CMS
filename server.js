@@ -8,7 +8,9 @@ app.use(express.cookieParser());
 app.use(express.session({secret: 'superkey'}));
 app.use(express.static(__dirname + '/resources'));
 
+
 app.get('/', function(req, res){
+  console.log(murray.ext);
   murray.getposts(req,res);
 });
 app.get('/:id/:value',function(req,res){
@@ -65,12 +67,6 @@ app.get('/logout', function(req,res){
   murray.logout(req,res);
 });
 
-app.get('/test', function(req,res){
-  var folder = './murray/plugins';
-  murray.plugins(folder,function(){
-    console.log(murray.ext.extend.extend);
-  });
-});
 
 app.listen(3000);
 

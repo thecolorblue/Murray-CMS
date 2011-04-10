@@ -13,6 +13,10 @@ html
         #container!= body
       div.grid_4
         p sidebar
+        - if (sidebar != '')
+          - each sidebaritem in sidebar
+            div.sidebaritem
+              p.sidebody #{sidebaritem}
       div.grid_12
         p footer
         - if (logged != '')
