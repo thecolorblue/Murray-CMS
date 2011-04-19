@@ -1,11 +1,10 @@
 $(document).ready(function(){
-  $('body').append('<div id="toolbar">toolbar</div>');
-  $('#toolbar').css({'position':'fixed','right':'50px'});
-  $('#toolbar').append('<ul id="actions"><li id="createpostli"><a href="#" id="createpostlink">create post</a></li></ul>');
+  $('#toolbar').css({'position':'fixed','right':'50px','width':'250px','top':'10px'});
+  $('#createpostli').append('<a href="#" id="createpostlink">create post</a>');
   $('#actions').css({'position':'relative','list-style-type':'none'}).append('<li><a href="logout">logout</a></li>');
   var postformstyle = {
     'position':'absolute',
-    'right':'100px',
+    'right':'230px',
     'background':'#ddd',
     'display':'none',
     'padding':'15px'

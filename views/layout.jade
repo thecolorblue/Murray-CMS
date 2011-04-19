@@ -21,5 +21,14 @@ html
         p footer
         - if (logged != '')
           - if (logged == true)
+            div#toolbar toolbar
+              ul#actions
+                li#createpostli
+                - each type in ctype
+                  li 
+                    a.create(href="#") #{type.title}
+                    div.cform
+                      form(method:'post',action:'/create/post')
+                        input(type: 'something')
             script(src='/admin.js',type='text/javascript')
 

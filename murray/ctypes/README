@@ -1,0 +1,4 @@
+/*
+We could make this a json file, but I think it is more flexible as a psuedo common.js module. 
+For example, it would be nice if we built in 'export.onPublish' functionality that calls some javascript when this content type is published
+ */

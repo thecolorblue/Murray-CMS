@@ -57,7 +57,8 @@ app.post('/create/user', function(req,res){
 });
 
 app.get('/login', function(req,res){
-  res.render('loginform.jade',{posts: '', logged: ''});
+  console.log(murray);
+  res.render('loginform.jade',{posts: '', logged: '',sidebar:sidebar});
 });
 app.post('/login', function(req,res){
   murray.login(req,res);

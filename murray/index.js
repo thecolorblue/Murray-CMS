@@ -10,24 +10,48 @@ var db = new Db('murray', new Server('127.0.0.1', 27017, {}));
 /* Building the sidebar from /plugins folder */
 var plugins = {};
 var sidebar = [];
-var folder = __dirname + '/plugins';
-fs.readdir(folder,function(err,files){
+var pluginfolder = __dirname + '/plugins';
+fs.readdir(pluginfolder,function(err,files){
   for (var i = 0;i < files.length;i++){
     var filetype = /\Wjs$/;
     if (filetype.test(files[i]) == true){
       var title = files[i].replace(filetype, '');
-      var file = folder + '/' + files[i];
+      var file = pluginfolder + '/' + files[i];
       plugins[title] = require(file);
       
     }  
   }
   for (var n in plugins){
-    console.log(plugins[n].item);
     if(plugins[n].sidebaritem != undefined){
       sidebar.push(plugins[n].sidebaritem);
     }
   }
-  console.log(sidebar);
+});
+
+var contenttype = {};
+var ctype = {};
+var cfolder = __dirname + '/ctypes';
+fs.readdir(cfolder,function(err,files){
+  for (var i = 0;i < files.length;i++){
+    var filetype = /\Wjs$/;
+    if (filetype.test(files[i]) == true){
+      var title = files[i].replace(filetype, '');
+      var file = cfolder + '/' + files[i];
+      contenttype[title] = require(file);
+      
+    }  
+  }
+  for (var n in contenttype){
+    console.log(contenttype[n]);
+    if(contenttype[n].form != ''){
+      var cform = {};
+      cform.title = contenttype[n].Meta.title;
+      cform.form = contenttype[n].Form;
+      ctype[cform.title] = cform;
+      console.log(cform);
+    }
+  }
+  console.log(ctype);
 });
 
 /*
@@ -57,7 +81,7 @@ exports.getposts = function(req,res,options,callback){
           if(callback != ''){
           console.log(posted);
           console.log(sidebar);
-          res.render('index.jade', {posts: posted, logged: logged, sidebar:sidebar});
+          res.render('index.jade', {posts: posted, logged: logged, sidebar:sidebar,ctype:ctype});
           } else {
             callback();
           }
@@ -167,3 +191,9 @@ exports.plugins = function(folder,callback){
     callback();
   });
 };
+/*
+ *  Create User
+ *  Creates hash of password
+ *  Creates entry in murray.users with username and hash
+ *  (todo)
+ */
