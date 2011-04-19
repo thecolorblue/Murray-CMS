@@ -27,6 +27,7 @@ fs.readdir(pluginfolder,function(err,files){
     }
   }
 });
+var htmlTemplate = '<!DOCTYPE html><html><head></head><body><: posts :><: sidbar :><: forms :></body></html>';
 
 var contenttype = {};
 var ctype = {};
@@ -42,18 +43,15 @@ fs.readdir(cfolder,function(err,files){
     }  
   }
   for (var n in contenttype){
-    console.log(contenttype[n]);
     if(contenttype[n].form != ''){
       var cform = {};
       cform.title = contenttype[n].Meta.title;
       cform.form = contenttype[n].Form;
+      cform.view = contenttype[n].View;
       ctype[cform.title] = cform;
-      console.log(cform);
     }
   }
-  console.log(ctype);
 });
-
 /*
  *  Get Posts
  *  pulls all of the posts in 'posts' collection
@@ -68,6 +66,14 @@ exports.getposts = function(req,res,options,callback){
     }
     filters = options;
   }
+  if(filters.form != undefined){
+      console.log('looking for form');
+      var content = {};
+      content.forms = ctype[filters.form].form;
+      substitute(htmlTemplate, content,function(html){
+        res.end(html);  
+      });
+  } else {
   var config = {'limit':8,'sort':[['date', -1]]};
   db.open(function(err, db){
     db.collection('posts', function(err, collection){
@@ -79,9 +85,15 @@ exports.getposts = function(req,res,options,callback){
             var logged = false;
           }
           if(callback != ''){
-          console.log(posted);
-          console.log(sidebar);
-          res.render('index.jade', {posts: posted, logged: logged, sidebar:sidebar,ctype:ctype});
+            var parts = {};
+            forPosts(posted,function(array){
+              parts.posts = array.join('<hr/>');
+              console.log(parts);
+              substitute(htmlTemplate,parts,function(html){
+                res.writeHead(200,{'Content-Type':'text/html'});
+                res.end(html);            
+              });
+            });
           } else {
             callback();
           }
@@ -90,6 +102,7 @@ exports.getposts = function(req,res,options,callback){
       });
     });
   });
+  }
 };
 /*
  *  Create Post
@@ -191,6 +204,37 @@ exports.plugins = function(folder,callback){
     callback();
   });
 };
+/*
+ *  Substitute
+ *  takes template (string), array of content, and callback
+ *  returns template with content
+ */
+function substitute(string,array,callback){
+  var re = /<:\s(\w+)\s:>/g;
+  var searchString = string;
+  var result = searchString.match(re);
+  for (i=0;i<result.length;i++){
+    var reg = /\s(\w+)\s/;
+    var tarray = reg.exec(result[i]);
+    var templateName = tarray[1];
+    var replacement = array[templateName];
+    searchString = searchString.replace(result[i],replacement);
+  }
+  callback(searchString);
+};
+/* Simple For Each */
+function forPosts(array,callback){
+  var renderedPosts = [];
+  for (i=0;i<array.length;i++){
+    var type = array[i].submit;
+    var view = ctype[type].view;
+    substitute(view,array[i],function(rendered){
+      renderedPosts[i] = rendered;
+    });
+  }
+  callback(renderedPosts);
+};
+
 /*
  *  Create User
  *  Creates hash of password
