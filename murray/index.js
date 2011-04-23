@@ -1,4 +1,5 @@
-//  Murray CMS Helpers
+var settings = require('./settings.js');
+console.log(settings);
 var Db = require('mongodb').Db,
     Connection = require('mongodb').Connection,
     Server = require('mongodb').Server,
