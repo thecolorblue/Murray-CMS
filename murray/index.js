@@ -27,7 +27,12 @@ fs.readdir(pluginfolder,function(err,files){
     }
   }
 });
-var htmlTemplate = '<!DOCTYPE html><html><head></head><body><: posts :><: sidbar :><: forms :></body></html>';
+
+var htmlTemplate = '';
+fs.readFile(__dirname + '/theme/template.html',encoding='utf8',function(err,data){
+  if(err) console.log(err);
+  htmlTemplate = data;
+});
 
 var contenttype = {};
 var ctype = {};
@@ -103,6 +108,21 @@ exports.getposts = function(req,res,options,callback){
     });
   });
   }
+};
+
+/*
+ *  Get Form
+ *
+ */
+exports.getForm = function(res,options){
+  var forms = [];
+  var formType = options.ctype;
+  forms.forms = ctype[formType].form;
+              console.log(forms);
+              substitute(htmlTemplate,forms,function(html){
+                res.writeHead(200,{'Content-Type':'text/html'});
+                res.end(html);            
+              });
 };
 /*
  *  Create Post

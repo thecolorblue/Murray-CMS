@@ -23,5 +23,5 @@ exports.View = '<div style="position:relative;" class="post"> \
 </div>';
 exports.Meta = {
   title:'blogpost',
-  engineer:'Brad Davis'
+  engineer:'Brad Davis,brad@braddavis.cc'
 };

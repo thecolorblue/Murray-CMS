@@ -13,6 +13,11 @@ app.get('/', function(req, res){
   console.log(murray.ext);
   murray.getposts(req,res);
 });
+app.get('/new/:ctype', function(req,res){
+  var obj = {};
+  obj.ctype = req.params.ctype;
+  murray.getForm(res,obj);
+});
 app.get('/:id/:value',function(req,res){
   var obj = {};
   obj[req.params.id] = req.params.value;
@@ -41,10 +46,6 @@ app.get('/admin/settings', function(req,res){
   });
 });
 
-app.get('/new', function(req,res){
-  console.log(req);
-  res.render('newpost.jade',{posts: '', logged: ''});  
-});
 app.post('/create/post', function(req, res){
   murray.isIn(req.cookies,function(){
     murray.createpost(req,res);
