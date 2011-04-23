@@ -118,11 +118,11 @@ exports.getForm = function(res,options){
   var forms = [];
   var formType = options.ctype;
   forms.forms = ctype[formType].form;
-              console.log(forms);
-              substitute(htmlTemplate,forms,function(html){
-                res.writeHead(200,{'Content-Type':'text/html'});
-                res.end(html);            
-              });
+  console.log(forms);
+  substitute(htmlTemplate,forms,function(html){
+    res.writeHead(200,{'Content-Type':'text/html'});
+    res.end(html);            
+  });
 };
 /*
  *  Create Post
