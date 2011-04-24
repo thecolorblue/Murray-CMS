@@ -1,4 +1,18 @@
-/*
-We could make this a json file, but I think it is more flexible as a psuedo common.js module. 
-For example, it would be nice if we built in 'export.onPublish' functionality that calls some javascript when this content type is published
- */
+## Content Types
+
+Any .js file in this folder Murray tries to turn into a new content type. Right now it only takes the title, form and view.  
+
+We could make this a json file, but I think it is more flexible as a common.js module. 
+For example, it would be nice if we built in 'export.onPublish' functionality that calls some javascript when this content type is published. 
+
+## Form
+
+exports.Form is just a string. If you want to use multiple lines make sure to put a \ at the end. Otherwise node gets angry. 
+
+## View 
+
+Right now there is only one view, but I want to extend this to allow multiple views. Same issues apply here as in the form, use \ for multiple lines. 
+
+## Meta
+
+This is information used internally. The title is the only thing that is important now, but it is probably a good idea to put your name (so you get credit for your great work) and a version number.

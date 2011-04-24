@@ -125,7 +125,15 @@ exports.getForm = function(res,options){
  */
 exports.createpost = function(req,res,newpost){
   var blogpost = req.body;
-  console.log(req.body);
+  var user = req.cookies.user;
+  crud.post(blogpost,user,function(err,docs){
+    if(err){
+      console.log(err);
+    } else {
+      res.send('saved new post\n</p><a href="/">Head Back Home</a></p>\n');
+    }
+  });
+/*  console.log(req.body);
   db.open(function(err, db){
     db.collection('settings', function(err, collection){
       collection.find({}, function(err, cursor){
@@ -154,7 +162,7 @@ exports.createpost = function(req,res,newpost){
         });
       });
     });
-  });
+  }); */
 };
 /*
  *  Login
