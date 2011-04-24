@@ -7,7 +7,7 @@ var db = new Db('murray', new Server('127.0.0.1', 27017, {}));
 
 Mongo = {};
 
-Mongo.get = function(filters,config,collection,callback){
+Mongo.read = function(filters,config,collection,callback){
   db.open(function(err, db){
     db.collection('posts', function(err, collection){
       collection.find(filters,config, function(err, cursor){
@@ -20,7 +20,7 @@ Mongo.get = function(filters,config,collection,callback){
   });
 };
 
-Mongo.post = function(blogpost, user,callback){
+Mongo.create = function(blogpost, user,callback){
   db.open(function(err, db){
     db.collection('settings',function(err,collection){
       collection.find({}, function(err,cursor){
@@ -48,7 +48,7 @@ Mongo.post = function(blogpost, user,callback){
   });
 };
 
-Mongo.put = function(){};
+Mongo.update = function(){};
 
 Mongo.delete = function(){};
 

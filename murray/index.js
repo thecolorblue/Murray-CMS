@@ -80,7 +80,7 @@ exports.getposts = function(req,res,options,callback){
     });
   } else {
     var config = {'limit':8,'sort':[['date', -1]]};
-    crud.get(filters,config,'posts',function(posted,err){
+    crud.read(filters,config,'posts',function(posted,err){
             if(req.cookies.loggedin == 1){
               var logged = true;
             } else {
@@ -89,7 +89,7 @@ exports.getposts = function(req,res,options,callback){
             if(callback != ''){
               var parts = {};
               forPosts(posted,function(array){
-                parts.posts = array.join('<hr/>');
+                parts.posts = array.join('');
                 console.log(parts);
                 substitute(htmlTemplate,parts,function(html){
                   res.writeHead(200,{'Content-Type':'text/html'});
@@ -97,7 +97,7 @@ exports.getposts = function(req,res,options,callback){
                 });
               });
             } else {
-              callback();
+              callback(posted);
             }
     });
   }
@@ -126,7 +126,7 @@ exports.getForm = function(res,options){
 exports.createpost = function(req,res,newpost){
   var blogpost = req.body;
   var user = req.cookies.user;
-  crud.post(blogpost,user,function(err,docs){
+  crud.create(blogpost,user,function(err,docs){
     if(err){
       console.log(err);
     } else {

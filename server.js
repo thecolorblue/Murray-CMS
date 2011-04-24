@@ -18,6 +18,11 @@ app.get('/new/:ctype', function(req,res){
   obj.ctype = req.params.ctype;
   murray.getForm(res,obj);
 });
+app.get('/admin/posts', function(req,res){
+  murray.isIn(req.cookies,function(){
+    res.send('page showing all posts in a table.');
+  });
+});
 app.get('/:id/:value',function(req,res){
   var obj = {};
   obj[req.params.id] = req.params.value;
@@ -30,11 +35,6 @@ app.get('/file/:file', function(req,res){
   res.send('looking for file: ' + req.params.file);
 });
 
-app.get('/admin/posts', function(req,res){
-  murray.isIn(req.cookies,function(){
-    res.send('page showing all posts in a table.');
-  });
-});
 app.get('/admin/users', function(req,res){
   murray.isIn(req.cookies,function(){
     res.send('page to administer users on blog.');  
