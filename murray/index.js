@@ -1,10 +1,10 @@
 var settings = require('./settings.js');
-console.log(settings);
 var Db = require('mongodb').Db,
     Connection = require('mongodb').Connection,
     Server = require('mongodb').Server,
     BSON = require('mongodb').BSONNative,
-    fs = require('fs');
+    fs = require('fs'),
+    crud = require('./db.js');
     
 var db = new Db('murray', new Server('127.0.0.1', 27017, {}));
 
@@ -19,7 +19,6 @@ fs.readdir(pluginfolder,function(err,files){
       var title = files[i].replace(filetype, '');
       var file = pluginfolder + '/' + files[i];
       plugins[title] = require(file);
-      
     }  
   }
   for (var n in plugins){
@@ -73,41 +72,34 @@ exports.getposts = function(req,res,options,callback){
     filters = options;
   }
   if(filters.form != undefined){
-      console.log('looking for form');
-      var content = {};
-      content.forms = ctype[filters.form].form;
-      substitute(htmlTemplate, content,function(html){
-        res.end(html);  
-      });
-  } else {
-  var config = {'limit':8,'sort':[['date', -1]]};
-  db.open(function(err, db){
-    db.collection('posts', function(err, collection){
-      collection.find(filters,config, function(err, cursor){
-        cursor.toArray(function(err, posted){
-          if(req.cookies.loggedin == 1){
-            var logged = true;
-          } else {
-            var logged = false;
-          }
-          if(callback != ''){
-            var parts = {};
-            forPosts(posted,function(array){
-              parts.posts = array.join('<hr/>');
-              console.log(parts);
-              substitute(htmlTemplate,parts,function(html){
-                res.writeHead(200,{'Content-Type':'text/html'});
-                res.end(html);            
-              });
-            });
-          } else {
-            callback();
-          }
-          db.close();
-        });
-      });
+    console.log('looking for form');
+    var content = {};
+    content.forms = ctype[filters.form].form;
+    substitute(htmlTemplate, content,function(html){
+      res.end(html);  
     });
-  });
+  } else {
+    var config = {'limit':8,'sort':[['date', -1]]};
+    crud.get(filters,config,'posts',function(posted,err){
+            if(req.cookies.loggedin == 1){
+              var logged = true;
+            } else {
+              var logged = false;
+            }
+            if(callback != ''){
+              var parts = {};
+              forPosts(posted,function(array){
+                parts.posts = array.join('<hr/>');
+                console.log(parts);
+                substitute(htmlTemplate,parts,function(html){
+                  res.writeHead(200,{'Content-Type':'text/html'});
+                  res.end(html);            
+                });
+              });
+            } else {
+              callback();
+            }
+    });
   }
 };
 
