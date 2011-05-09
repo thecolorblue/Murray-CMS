@@ -1,0 +1,12 @@
+{
+  "name" : "node-properties",
+  "description" : "Reads and makes available property JSON files",
+  "version" : "0.1",
+  "author" : "Robbie Clutton <robert.clutton@gmail.com>",
+  "engines" : ["node"], 
+  "main" : "lib/properties.js",
+  "directories" : { "lib" : "./lib" },
+  "repositories" : [
+    { "type":"git", "url":"http://github.com/theteam/node-properties.git" }
+  ]
+}

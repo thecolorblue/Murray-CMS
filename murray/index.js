@@ -1,16 +1,19 @@
 var settings = require('./settings.js');
-var Db = require('mongodb').Db,
-    Connection = require('mongodb').Connection,
-    Server = require('mongodb').Server,
-    BSON = require('mongodb').BSONNative,
-    fs = require('fs'),
+var fs = require('fs'),
     crud = require('./db.js');
-    
-var db = new Db('murray', new Server('127.0.0.1', 27017, {}));
+var app = require('express').createServer();
+var express = require('express');
 
-/* Building the sidebar from /plugins folder */
-var plugins = {};
-var sidebar = [];
+app.use(express.cookieParser());
+app.use(express.session({secret:'hamburgers'}));
+   
+/* Building all the pieces you will need later */
+var plugins = {};  // general plugins
+var sidebar = [];  // array of elements to go in sidebar of template
+var widgets = [];  // text strings that go into the sidebar
+var gadgets = [];  // a sidebar element that needs some extra processing
+var appliances = {};  // plugins that add functionality to Murray
+
 var pluginfolder = __dirname + '/plugins';
 fs.readdir(pluginfolder,function(err,files){
   for (var i = 0;i < files.length;i++){
@@ -27,24 +30,64 @@ fs.readdir(pluginfolder,function(err,files){
     }
   }
 });
+var pretestjson = fs.readFileSync(__dirname+'/themes/brandnew/index.json','utf8');
+var themesFolder = __dirname + '/themes';
+var testjson = JSON.parse(pretestjson);
 
-var htmlTemplate = '';
-fs.readFile(__dirname + '/theme/template.html',encoding='utf8',function(err,data){
-  if(err) console.log(err);
-  htmlTemplate = data;
+fs.readdir(themesFolder, function(err,files){
+  var tempatesAvailable = {};
+  for(var i = 0; i < files.length ; i++){
+    if(files[i] != 'template.html' && files[i] != '.DS_Store'){
+      var templatejson = JSON.parse(fs.readFileSync(__dirname+'/themes/'+files[i]+'/index.json','utf8'));
+      var template = {};
+      template.name = templatejson.Name;
+    }
+  }
 });
 
-var contenttype = {};
+var htmlTemplate = '';
+function getTemplate(templateName,callback){
+  var error = {};
+  var foundTemplate = '';
+  if(templateName === 'default'){
+    fs.readFile(
+      __dirname + '/theme/template.html',
+      encoding='utf8',
+      function(err,data){
+        if(err) console.log(err);
+        htmlTemplate = data;
+        callback(error,foundTemplate);
+      }
+    );
+  } else {
+    for(var i=0;i<templatesAvailable.length;i++){
+      if(templateName == templatesAvailable[i].Name){
+        fs.readFile(
+          __dirname+'/theme/'+templatesAvailable[i].Name+'index.html',
+          encoding='utf8',
+          function(err,data){
+            if(err){console.log(err)};
+            htmlTemplate = data;
+            callback(error,foundTemplate);
+          }  
+        );
+      } else {
+        error.push = 'template' + templateName + 'could not be found';
+        callback(error,foundTemplate);
+      }
+    }  
+  }
+}
 var ctype = {};
 var cfolder = __dirname + '/ctypes';
 fs.readdir(cfolder,function(err,files){
+  var contenttype = {};
   for (var i = 0;i < files.length;i++){
     var filetype = /\Wjs$/;
     if (filetype.test(files[i]) == true){
       var title = files[i].replace(filetype, '');
       var file = cfolder + '/' + files[i];
       contenttype[title] = require(file);
-      
     }  
   }
   for (var n in contenttype){
@@ -57,6 +100,7 @@ fs.readdir(cfolder,function(err,files){
     }
   }
 });
+
 /*
  *  Get Posts
  *  pulls all of the posts in 'posts' collection
@@ -88,6 +132,7 @@ exports.getposts = function(req,res,options,callback){
             }
             if(callback != ''){
               var parts = {};
+              parts.sidebar = sidebar;
               forPosts(posted,function(array){
                 parts.posts = array.join('');
                 console.log(parts);
@@ -133,36 +178,6 @@ exports.createpost = function(req,res,newpost){
       res.send('saved new post\n</p><a href="/">Head Back Home</a></p>\n');
     }
   });
-/*  console.log(req.body);
-  db.open(function(err, db){
-    db.collection('settings', function(err, collection){
-      collection.find({}, function(err, cursor){
-        cursor.toArray(function(err, posted){
-          var postnum = posted[0].postcount;
-          console.log(posted[0].postcount);
-          blogpost.pid = ++postnum;
-          blogpost.date = new Date();
-          blogpost.user = req.cookies.user;
-          console.log(blogpost);
-          db.collection('posts',function(err,collection){
-            collection.insert([blogpost],function(err,docs){
-              db.collection('settings',function(err,collection){
-                collection.update({name:'postcounter'},
-                  {$inc:{postcount:1}}, {safe:true},
-                  function(err,docs){
-                    console.log(err);
-                    console.log(docs);
-                    db.close();
-                    res.send('saved new post\n</p><a href="/">Head Back Home</a></p>\n');
-                  }
-                );            
-              });
-            });
-          });
-        });
-      });
-    });
-  }); */
 };
 /*
  *  Login
@@ -170,27 +185,26 @@ exports.createpost = function(req,res,newpost){
  *  and creates cookies
  */
 exports.login = function(req,res){
-  db.open(function(err, db){
-    db.collection('users', function(err, collection){
-      collection.find({}, function(err, cursor){
-        cursor.toArray(function(err, users){
-          for (var i = 0; i < users.length; i++){
-            if(users[i].name == req.body.name && users[i].pass == req.body.password){
-              res.cookie('loggedin', '1', 
-                { path: '/', expires: new Date(Date.now() + 900000), httpOnly: true });
-              res.cookie('user', req.body.name, 
-                { path: '/', expires: new Date(Date.now() + 900000), httpOnly: true });
-              res.send('You logged in!\n</p><a href="/">Head Back Home</a></p>');  
-            } else {
-              res.send('sorry, try again');
-            }
-          }
-          db.close();
-        });
-      });
-    });
+  var config = {'sort':[['date', -1]]};
+  var loggedin = false;
+  crud.read({},config,'users',function(users,err){
+    for (var i = 0; i < users.length; i++){
+      if(users[i].name == req.body.name && users[i].pass == req.body.password){
+        res.cookie('loggedin', 1, 
+          { path: '/', expires: new Date(Date.now() + 900000)});
+        res.cookie('user', req.body.name, 
+          { path: '/', expires: new Date(Date.now() + 900000)});
+        loggedin = true;
+      } 
+    }
+    if (loggedin = true){
+      res.send('You logged in!\n</p><a href="/">Head Back Home</a></p>');  
+    } else {
+      res.send('you should try again');
+    }
   });
 };
+
 /*
  *  Logout
  *  clears out loggedin and user cookie
@@ -262,3 +276,19 @@ function forPosts(array,callback){
  *  Creates entry in murray.users with username and hash
  *  (todo)
  */
+ 
+/*
+ *  Appliance Prototype
+ *  creates an appliance
+ *  (todo) create hooks in Murray
+ */
+function Appliance(name, hook){
+  this.name = name;
+  this.hook = hook;
+}
+Appliance.prototype = {
+  process: function(input){
+    this.functions.push(input);
+  }
+}
+ 

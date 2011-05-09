@@ -47,6 +47,7 @@ app.get('/admin/settings', function(req,res){
 });
 
 app.post('/create/post', function(req, res){
+  console.log(req.cookies);
   murray.isIn(req.cookies,function(){
     murray.createpost(req,res);
   });
@@ -61,6 +62,8 @@ app.get('/login', function(req,res){
   res.render('loginform.jade',{posts: '', logged: '',sidebar:''});
 });
 app.post('/login', function(req,res){
+res.cookie('loggedin', 1, 
+          { path: '/', expires: new Date(Date.now() + 900000)});
   murray.login(req,res);
 });
 

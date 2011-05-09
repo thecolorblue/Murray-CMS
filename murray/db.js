@@ -1,7 +1,7 @@
 
 
 // A couple extra variables
-var dbdriverfile = __dirname + '/dbs/' + murrayCMS.settings.database + '.js';
+var dbdriverfile = __dirname + '/chauffeurs/' + murrayCMS.settings.database + '.js';
 
 // require db 'driver'
 var dbDriver = require(dbdriverfile);
