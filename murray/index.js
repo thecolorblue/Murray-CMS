@@ -80,8 +80,8 @@ function getTemplate(templateName,callback){
 }
 var ctype = {};
 var cfolder = __dirname + '/ctypes';
-fs.readdir(cfolder,function(err,files){
   var contenttype = {};
+fs.readdir(cfolder,function(err,files){
   for (var i = 0;i < files.length;i++){
     var filetype = /\Wjs$/;
     if (filetype.test(files[i]) == true){
@@ -100,6 +100,38 @@ fs.readdir(cfolder,function(err,files){
     }
   }
 });
+
+/*
+ *  Substitute
+ *  takes template (string), array of content, and callback
+ *  returns template with content
+ */
+function substitute(string,array,callback){
+  var re = /<:\s(\w+)\s:>/g;
+  var searchString = string;
+  var result = searchString.match(re);
+  for (i=0;i<result.length;i++){
+    var reg = /\s(\w+)\s/;
+    var tarray = reg.exec(result[i]);
+    var templateName = tarray[1];
+    var replacement = array[templateName];
+    searchString = searchString.replace(result[i],replacement);
+  }
+  callback(searchString);
+};
+
+/* Simple For Each */
+function forPosts(array,callback){
+  var renderedPosts = [];
+  for (i=0;i<array.length;i++){
+    var type = array[i].submit;
+    var view = ctype[type].view;
+    substitute(view,array[i],function(rendered){
+      renderedPosts[i] = rendered;
+    });
+  }
+  callback(renderedPosts);
+};
 
 /*
  *  Get Posts
@@ -239,36 +271,7 @@ exports.plugins = function(folder,callback){
     callback();
   });
 };
-/*
- *  Substitute
- *  takes template (string), array of content, and callback
- *  returns template with content
- */
-function substitute(string,array,callback){
-  var re = /<:\s(\w+)\s:>/g;
-  var searchString = string;
-  var result = searchString.match(re);
-  for (i=0;i<result.length;i++){
-    var reg = /\s(\w+)\s/;
-    var tarray = reg.exec(result[i]);
-    var templateName = tarray[1];
-    var replacement = array[templateName];
-    searchString = searchString.replace(result[i],replacement);
-  }
-  callback(searchString);
-};
-/* Simple For Each */
-function forPosts(array,callback){
-  var renderedPosts = [];
-  for (i=0;i<array.length;i++){
-    var type = array[i].submit;
-    var view = ctype[type].view;
-    substitute(view,array[i],function(rendered){
-      renderedPosts[i] = rendered;
-    });
-  }
-  callback(renderedPosts);
-};
+
 
 /*
  *  Create User

@@ -1,12 +1,9 @@
 {
-  "name" : "node-properties",
-  "description" : "Reads and makes available property JSON files",
+  "name" : "Brand New",
+  "description" : "Theme for Murray CMS",
   "version" : "0.1",
-  "author" : "Robbie Clutton <robert.clutton@gmail.com>",
-  "engines" : ["node"], 
-  "main" : "lib/properties.js",
-  "directories" : { "lib" : "./lib" },
+  "author" : "Brad Davis",
+  "main" : "index.html",
   "repositories" : [
-    { "type":"git", "url":"http://github.com/theteam/node-properties.git" }
   ]
 }
