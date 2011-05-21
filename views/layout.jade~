@@ -1,6 +1,0 @@
-!!! 5
-html
-  head
-    title Blog Posts
-  body
-    #container!= body

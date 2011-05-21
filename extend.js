@@ -1,1 +1,0 @@
-exports.extend = 'extended';
