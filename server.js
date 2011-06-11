@@ -10,7 +10,6 @@ app.use(express.static(__dirname + '/resources'));
 
 
 app.get('/', function(req, res){
-  console.log(murray.ext);
   murray.getposts(req,res);
 });
 app.get('/new/:ctype', function(req,res){

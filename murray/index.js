@@ -3,6 +3,7 @@ var fs = require('fs'),
     crud = require('./db.js');
 var app = require('express').createServer();
 var express = require('express');
+var auth = require('./authorize.js');
 
 app.use(express.cookieParser());
 app.use(express.session({secret:'hamburgers'}));
@@ -13,7 +14,7 @@ var sidebar = [];  // array of elements to go in sidebar of template
 var widgets = [];  // text strings that go into the sidebar
 var gadgets = [];  // a sidebar element that needs some extra processing
 var appliances = {};  // plugins that add functionality to Murray
-
+console.log(auth);
 var pluginfolder = __dirname + '/plugins';
 fs.readdir(pluginfolder,function(err,files){
   for (var i = 0;i < files.length;i++){
@@ -45,7 +46,21 @@ fs.readdir(themesFolder, function(err,files){
   }
 });
 
-var htmlTemplate = '';
+var htmlTemplate = '<!DOCTYPE html> \
+<html> \
+  <head> \
+    <link href="/960.css" rel="stylesheet" type="text/css"> \
+  </head> \
+  <body> \
+    <div class="container_12"> \
+      <div class="grid_12">Header!!!</div> \
+      <div class="grid_7"><: posts :></div> \
+      <div class="grid_5"><: sidbar :></div> \
+      <div class="grid_12"><: forms :></div> \
+    </div> \
+  </body> \
+</html>';
+/*
 function getTemplate(templateName,callback){
   var error = {};
   var foundTemplate = '';
@@ -78,6 +93,7 @@ function getTemplate(templateName,callback){
     }  
   }
 }
+*/
 var ctype = {};
 var cfolder = __dirname + '/ctypes';
   var contenttype = {};
@@ -123,7 +139,8 @@ function substitute(string,array,callback){
 /* Simple For Each */
 function forPosts(array,callback){
   var renderedPosts = [];
-  for (i=0;i<array.length;i++){
+  for (var i in array){
+      console.error('post');
     var type = array[i].submit;
     var view = ctype[type].view;
     substitute(view,array[i],function(rendered){
@@ -162,19 +179,19 @@ exports.getposts = function(req,res,options,callback){
             } else {
               var logged = false;
             }
-            if(callback != ''){
+            if(callback){
+              callback(posted);
+            } else {
               var parts = {};
               parts.sidebar = sidebar;
               forPosts(posted,function(array){
+                console.error(array);
                 parts.posts = array.join('');
-                console.log(parts);
                 substitute(htmlTemplate,parts,function(html){
                   res.writeHead(200,{'Content-Type':'text/html'});
                   res.end(html);            
                 });
               });
-            } else {
-              callback(posted);
             }
     });
   }
@@ -217,19 +234,12 @@ exports.createpost = function(req,res,newpost){
  *  and creates cookies
  */
 exports.login = function(req,res){
-  var config = {'sort':[['date', -1]]};
-  var loggedin = false;
-  crud.read({},config,'users',function(users,err){
-    for (var i = 0; i < users.length; i++){
-      if(users[i].name == req.body.name && users[i].pass == req.body.password){
-        res.cookie('loggedin', 1, 
-          { path: '/', expires: new Date(Date.now() + 900000)});
-        res.cookie('user', req.body.name, 
-          { path: '/', expires: new Date(Date.now() + 900000)});
-        loggedin = true;
-      } 
-    }
-    if (loggedin = true){
+  auth.authorize(req.body.user,req.body.pass,function(result,use){
+    if (result = true){
+      res.cookie('loggedin', 1, 
+    { path: '/', expires: new Date(Date.now() + 900000)});
+      res.cookie('user', req.body.name, 
+    { path: '/', expires: new Date(Date.now() + 900000)});
       res.send('You logged in!\n</p><a href="/">Head Back Home</a></p>');  
     } else {
       res.send('you should try again');

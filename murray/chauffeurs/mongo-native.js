@@ -3,15 +3,19 @@ var Db = require('mongodb').Db,
     BSON = require('mongodb').BSONNative,
     Server = require('mongodb').Server;
     
-var db = new Db('murray', new Server('127.0.0.1', 27017, {}));
+var db = new Db('murray', new Server('127.0.0.1', 27017, {}), {native_parser:true});
 
 Mongo = {};
 
 Mongo.read = function(filters,config,collection,callback){
   db.open(function(err, db){
+    if(err)console.log(err);
     db.collection('posts', function(err, collection){
+      if(err)console.log(err);
       collection.find(filters,config, function(err, cursor){
+        if(err)console.log(err);
         cursor.toArray(function(err, posted){
+          if(err)console.log(err);
           callback(posted,err);
           db.close();
         });
