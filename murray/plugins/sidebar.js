@@ -1,1 +1,0 @@
-exports.sidebaritem = '<div>content</div>';

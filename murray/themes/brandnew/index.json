@@ -1,9 +1,0 @@
-{
-  "name" : "Brand New",
-  "description" : "Theme for Murray CMS",
-  "version" : "0.1",
-  "author" : "Brad Davis",
-  "main" : "index.html",
-  "repositories" : [
-  ]
-}
