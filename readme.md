@@ -1,54 +1,94 @@
 # Murray CMS
 
-Very early version of a blog using nodejs and mongodb. It is designed to be simple, flexible, and take advantage of some of the features of mongodb, like the ability to save data to the db without an structure. 
+This is more of an example than it is a CMS like express. There is no bootsrap helper to get you started, or plugins. What you see is what you get. 
+
+That being said, I introduce Murray. 
+
+Murray is designed to be lightweight and get out of your way as much as possible. It was built out of necessity. 
+
 
 ## Getting Started
 
-You need to setup your mongodb by hand. This isn't as tricky as it sounds since there is not much going on right now. 
-after you enter mongo:
+Copy this repo into a folder. 
 
-    use murray // opens murry db
-    // create settings
-    settings = {name:'postcounter', postcounter:0}
-    db.settings.save(settings)
-    // create first user
-    // the only thing that is really required is name and pass
-    admin = {id:1, name:'admin', pass:'secretpassword', 'email':'you@yourdomain.com'}
-    db.users.save(admin)
+	git clone https://github.com/thecolorblue/Murray-CMS.git
+
+Create your own copy of default.settings.js.
+
+	mv default.settings.js development.settings.js
+
+Create your schema.js and routes.js. Then edit the splash view, or create your own.
+
+And you should be good to go. 
 
 
-And you should be all set! Mongo should create everything else you need as you go along. 
+## Requirements
+
+Murray is pretty opinionated right now. In the future this will change. You have to use Mongoose (and by default Mongodb), express, and mu2(mustache templates). 
 
 If you run into any problems create an issue at https://github.com/thecolorblue/Murray-CMS
 
-## Content types
+## Folders
 
-Murray comes with a 'blogpost' content type already setup for you. It is in the ./murray/ctypes folder. If you add another .js file, and use blogpost as a template, you can make other content types. Unfortuneatly, you can only use text, no files yet. You should be able to make a copy and then play around with what you can do as far as extra fields and views. 
+### Views
 
+Murray expects the folders in views to have a specific structure. Each folder needs an index.html, an index.js, and a package.json file. The html file will be your public page, index.js will be run on the server, and package.json will tell murray any settings specific to that view. 
 
-Each content type has a form, a view, and some meta data. 
+Your index.js file should look something like this...
 
-The form is used to create a new post.
+	modules.exports = function() {
+		// this = package.json
+	};
 
-The view is for rendering the post into the template. 
-
-Meta data is just there for reference. Add whatever you want there.
-
-## Plugins
-
-This folder will eventually hold any add-ons that someone would want to write that lay on top of Murray. 
-
-Examples:
- - HTML processor (jade, markdown)
- - CSS handling (adding bits of css to template, or processing SASS)
- - extending admin interface
-
-All of these have not been built yet, but would be really cool right?
-
-## Theme
-
-Right now, the theme folder only holds a template.html file that all of the other parts get put into right before the response is sent back. 
-
-The next step is to allow for the template.html file be split up into sidebar.html and footer.html that would extend template. I also want to add an event loop to allow for jade or markdown plugins. 
+The context of the function you are setting as the exports will be whatever you put in package.json, so you will have access to your settings (although changing them will not do anything). This function will be run automatically when the view is loaded. Inside that function you will want to register any routes. 
 
 
+	var util = require('util');
+
+	modules.exports = function() {
+
+		var view = this;
+
+		app.get('/', function(req,res) {
+			var stream = mu.compileAndRender('./' + view.name + '/index.html', {
+				"view"			: view,
+				"access"		: req.session.accessToken,
+				"person"        : req.session.person,
+				"session"       : req.sessionID
+			});
+		
+			util.pump(stream, res);
+		});
+	};
+
+If you have used this mustache template engine before, you will notice that I am passing the context to the template. This is not required by Murray but is a nice little trick since the context will have the folder name, which is needed for including things from the assets folder of this view. 
+
+Oh right, the assets folder. If there is an assets folder in your view, Murray will make it accessible at /{{view.name}}/{{staticFile}}. This is not as verbose as other CMS's, you might run into naming issues with alot of pages, but thats not what Murray really excels at. It was originally designed for apps with only a couple pages, and heavy amounts of client side javascript. 
+
+### Public
+
+The public folder is pretty basic. Murray sets it up just like a express static folder. All the files in there will be available at /{{ file_name }}. I suggest putting  your javascript in /js, css in /css, and images in /images, so that you do not run into issues with any views with the same name. Keep in mind, this folder should only have assets that you are using on multiple pages. Anything specific to one page can go in that pages assets folder. 
+
+### Modules
+
+Modules are very simple, they are just a collection of functions or settings. I use them as models for outside resources, for example facebook integration. Each one needs an index.js and a package.json. The package.json file is empty for now, just there for future-proofing. Make sure to put an empty object in or it will error. 
+
+The index file is setup more like a classic plugin you would require().
+
+	module.exports = {
+		post : function(options) {
+
+			},
+		login : function(req, res) {
+
+		},
+		oauth : function(accessKey, accesSecret) {
+
+		}
+	};
+
+Do not put any application specific settings in here. Those should go in your settings file. 
+
+## Files
+
+TODO 

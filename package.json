@@ -1,14 +1,23 @@
-{"name":"Murray CMS",
- "description":"A lightweight blog",
- "keywords":["blog","CMS","helper"],
- "version":"0.0.1",
- "tag":"alpha",
- "author":"Brad Davis <brad@braddavis.cc> (http://braddavis.cc)",
- "directories":{"views":"./views"},
- "main":"murray",
- "bin":"server.js",
- "dependencies":{"express":"2","node-mongodb-native","0.9.2"},
- "bundleDependencies":["express","node-mongodb-native"],
- "engines":{"node":"0.5"},
- "licenses":[{"type":"MIT","url":""}]
+{
+	"name":"Murray CMS",
+	"description":"A lightweight CMS",
+	"keywords":["blog","CMS","helper"],
+	"version":"0.2.1",
+	"tag":"alpha",
+	"author":"Brad Davis <brad@braddavis.cc> (http://braddavis.cc)",
+	"directories":{"views":"./views"},
+	"main":"murray",
+	"bin":"server.js",
+	"dependencies": {
+		"express": "3.0.0rc5",
+		"mongoose": "3.1.1",
+		"mu2": "0.5.13"
+	},
+	"engines": {
+		"node": "0.8.x",
+		"npm": "1.1.49"
+	},
+	"licenses":[
+		{"type":"MIT","url":""}
+	]
 }
