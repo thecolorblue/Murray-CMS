@@ -4,12 +4,12 @@ app = express();
 
 // if you want different settings for different environments
 // not required
-app.configure('production', require('./production.settings.js'));
+// app.configure('production', require('./production.settings.js'));
 app.configure('development', require('./development.settings.js'));
 
 var murray = require('./app.js');
 
-require('./schema.js');
+// require('./schema.js');
 
 murray.loadModules();
 
