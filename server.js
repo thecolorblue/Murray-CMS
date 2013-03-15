@@ -7,9 +7,19 @@ app = express();
 app.configure('production', require('./production.settings.js'));
 app.configure('development', require('./development.settings.js'));
 
-require('./app');
+var murray = require('./app.js');
+
 require('./schema.js');
-require('./routes');
+
+murray.loadModules();
+
+// require('./routes');
+// require('./sockets');
+
+murray.loadAPI();
+murray.loadViews();
+
+// murray.createPackage();
 
 app.listen(process.env.PORT || 3000);
 
