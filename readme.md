@@ -52,34 +52,35 @@ Your index.js file should look something like this...
 The context of the function you are setting as the exports will be whatever you put in package.json, so you will have access to your settings (although changing them will not do anything). This function will be run automatically when the view is loaded. Inside that function you will want to register any routes. 
 
 
-	var util = require('util'), mu = require('mu2');
-	
-	var Page = function() {
+	var Page = function(pack) {
+		this.name = pack.name;
+		app.get('/',this.handleRequest.bind(this));
 	};
-	Page.prototype.init = function(package) {
-		console.log(this);
-		app.get('/homepage',this.handleRequest);
-	};
+
 	Page.prototype.handleRequest = function(req,res){
-	
+
 		if (process.env.NODE_ENV == 'development') {
 			mu.clearCache();
 		}
 		
-		var stream = mu.compileAndRender('./views/'+ view.name +'/index.html', {
+		var stream = mu.compileAndRender('./views/'+ this.name +'/index.html', {
 				"session" : req.session,
 				"view" : this
 		});
-	
+
 		util.pump(stream, res);
 	};
-	
-	module.exports = new Page().init;
+
+	module.exports = Page;
 	
 What is the advantage of using prototype here?
 Using prototype allows you to take advantage of javascript object oriented features. 
 Adding functions to your page from somewhere else is very simple, just make sure they
 are available either in your app object or thru require(). 
+
+You also have access to anything you put in the views package.json file in the first argument
+of the Page constructor function. As you can see in the example, we are setting the name
+of the view from the name value in package.json. 
 
 If you have used this mustache template engine before, you will notice that I am passing the context to the template. This is not required by Murray but is a nice little trick since the context will have the folder name, which is needed for including things from the assets folder of this view. 
 
