@@ -71,7 +71,8 @@ Package.prototype.load = function(o){
 		// 	}
 		// }
 		this.exports = require('./'+ this.folder + '/'+this.name+'/index.js');
-		if(typeof this.exports === 'function') this.exports.call(this);
+		if(typeof this.exports.prototype === 'object') new this.exports(this);
+		else if(typeof this.exports === 'function') this.exports.call(this);
 };
 
 // load api

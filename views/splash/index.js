@@ -1,17 +1,25 @@
 // index.js
 var util = require('util'), mu = require('mu2');
-module.exports = function(){
-	var view = this;
 
-	app.get('/',function(req,res){
-		if (process.env.NODE_ENV == 'development') {
-			mu.clearCache();
-		}
+var fs = require('fs');
 
-		var stream = mu.compileAndRender('./'+ view.name +'/index.html', { 
-				"view" : view
-		});
-
-		util.pump(stream, res);
-	});
+var Page = function(pack) {
+	this.name = pack.name;
+	app.get('/',this.handleRequest.bind(this));
 };
+
+Page.prototype.handleRequest = function(req,res){
+
+	if (process.env.NODE_ENV == 'development') {
+		mu.clearCache();
+	}
+	
+	var stream = mu.compileAndRender('./views/'+ this.name +'/index.html', {
+			"session" : req.session,
+			"view" : this
+	});
+
+	util.pump(stream, res);
+};
+
+module.exports = Page;
