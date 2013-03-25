@@ -6,6 +6,15 @@ That being said, I introduce Murray.
 
 Murray is designed to be lightweight and get out of your way as much as possible. It was built out of necessity. 
 
+The inspiration came from a lack of features form require(). 
+It does that it has to, but interacting between modules within 
+a project is still tedious. For example, a controller should
+not have to know where in the file system the model is held to
+access its properties. This is the problem I wanted to solve
+with Murray. 
+
+Murray is named after [Elizabeth Murray](http://www.pbs.org/art21/artists/elizabeth-murray).
+
 
 ## Getting Started
 
@@ -43,23 +52,34 @@ Your index.js file should look something like this...
 The context of the function you are setting as the exports will be whatever you put in package.json, so you will have access to your settings (although changing them will not do anything). This function will be run automatically when the view is loaded. Inside that function you will want to register any routes. 
 
 
-	var util = require('util');
-
-	modules.exports = function() {
-
-		var view = this;
-
-		app.get('/', function(req,res) {
-			var stream = mu.compileAndRender('./' + view.name + '/index.html', {
-				"view"			: view,
-				"access"		: req.session.accessToken,
-				"person"        : req.session.person,
-				"session"       : req.sessionID
-			});
-		
-			util.pump(stream, res);
-		});
+	var util = require('util'), mu = require('mu2');
+	
+	var Page = function() {
 	};
+	Page.prototype.init = function(package) {
+		console.log(this);
+		app.get('/homepage',this.handleRequest);
+	};
+	Page.prototype.handleRequest = function(req,res){
+	
+		if (process.env.NODE_ENV == 'development') {
+			mu.clearCache();
+		}
+		
+		var stream = mu.compileAndRender('./views/'+ view.name +'/index.html', {
+				"session" : req.session,
+				"view" : this
+		});
+	
+		util.pump(stream, res);
+	};
+	
+	module.exports = new Page().init;
+	
+What is the advantage of using prototype here?
+Using prototype allows you to take advantage of javascript object oriented features. 
+Adding functions to your page from somewhere else is very simple, just make sure they
+are available either in your app object or thru require(). 
 
 If you have used this mustache template engine before, you will notice that I am passing the context to the template. This is not required by Murray but is a nice little trick since the context will have the folder name, which is needed for including things from the assets folder of this view. 
 
