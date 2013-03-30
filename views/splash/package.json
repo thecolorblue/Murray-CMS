@@ -1,3 +1,6 @@
 {
-	"name" : "splash"
+	"name" : "splash",
+	"express" : {
+		"url" : "/"
+	}
 }

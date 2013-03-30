@@ -3,17 +3,21 @@ var util = require('util'), mu = require('mu2');
 
 var fs = require('fs');
 
-var Page = function(pack) {
+var ExpressView = function(pack) {
+	console.log(app);
 	this.name = pack.name;
-	app.get('/',this.handleRequest.bind(this));
+	app.get(pack.express.url,this.handleRequest.bind(this));
+	this.initialize(pack);
 };
 
-Page.prototype.handleRequest = function(req,res){
+ExpressView.prototype.initialize = function(pack) {};
+
+ExpressView.prototype.handleRequest = function(req,res){
 
 	if (process.env.NODE_ENV == 'development') {
 		mu.clearCache();
 	}
-	
+
 	var stream = mu.compileAndRender('./views/'+ this.name +'/index.html', {
 			"session" : req.session,
 			"view" : this
@@ -22,4 +26,4 @@ Page.prototype.handleRequest = function(req,res){
 	util.pump(stream, res);
 };
 
-module.exports = Page;
+module.exports = ExpressView;

@@ -80,7 +80,7 @@ are available either in your app object or thru require().
 
 You also have access to anything you put in the views package.json file in the first argument
 of the Page constructor function. As you can see in the example, we are setting the name
-of the view from the name value in package.json. 
+of the view from the name value in package.json.
 
 If you have used this mustache template engine before, you will notice that I am passing the context to the template. This is not required by Murray but is a nice little trick since the context will have the folder name, which is needed for including things from the assets folder of this view. 
 
