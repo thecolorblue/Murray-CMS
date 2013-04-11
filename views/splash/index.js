@@ -4,13 +4,13 @@ var util = require('util'), mu = require('mu2');
 var fs = require('fs');
 
 var ExpressView = function(pack) {
-	console.log(app);
 	this.name = pack.name;
-	app.get(pack.express.url,this.handleRequest.bind(this));
 	this.initialize(pack);
 };
 
-ExpressView.prototype.initialize = function(pack) {};
+ExpressView.prototype.initialize = function(pack) {
+	app.get(pack.express.url,this.handleRequest.bind(this));
+};
 
 ExpressView.prototype.handleRequest = function(req,res){
 

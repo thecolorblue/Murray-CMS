@@ -83,15 +83,15 @@ Package.prototype.init = function(options) {
 // the api folder works just like the views folder
 // what you do inside the folder will be different
 exports.loadAPI = function() {
-	var apis = fs.readdirSync('./api');
+	var apis = fs.readdirSync('./interfaces');
 	if(apis){
 		var packages = [];
 		for(var i=0,len=apis.length;i<len;i++){
-			if(fs.statSync('./api/'+apis[i]).isDirectory()){
+			if(fs.statSync('./interfaces/'+apis[i]).isDirectory()){
 				var env;
-				var folderapis = fs.readdirSync('./api/'+apis[i]);
-				if(require('./api/'+apis[i]+'/package.json')){
-					env = require('./api/'+apis[i]+'/package.json');
+				var folderapis = fs.readdirSync('./interfaces/'+apis[i]);
+				if(require('./interfaces/'+apis[i]+'/package.json')){
+					env = require('./interfaces/'+apis[i]+'/package.json');
 				} else {
 					env = app.env;
 				}
