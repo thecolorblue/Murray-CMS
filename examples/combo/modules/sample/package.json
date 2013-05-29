@@ -1,0 +1,8 @@
+{
+	"dependencies" : {
+		"oauth" : "0.9.8"
+	},
+	"require" : [
+		"index.js"
+	]
+}
