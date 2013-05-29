@@ -79,6 +79,35 @@ Package.prototype.init = function(options) {
 	else if(typeof this.exports === 'function') this.exports.call(this.attributes);	
 };
 
+// setup interfaces first
+(function() {
+	interfaces = fs.readdirSync('./interface');
+	if(interfaces){
+		var packages = [];
+		for(var i=0,len=interfaces.length;i<len;i++){
+			if(fs.statSync('./interface/'+interfaces[i]).isDirectory()){
+				var env;
+				var folderinterfaces = fs.readdirSync('./interface/'+interfaces[i]);
+				if(require('./interface/'+interfaces[i]+'/package.json')){
+					env = require('./interface/'+interfaces[i]+'/package.json');
+				} else {
+					env = app.env;
+				}
+				var pack = new Package(interfaces[i],env,"interface");
+				pack.name = interfaces[i];
+				packages.push(pack);
+			}
+		}
+		for(var a=0,l=packages.length;a<l;a++){
+			// interfaces don't have assets
+			packages[a].load({
+				assets : false
+			});
+			app.interfaces[packages[a].name] = packages[a];
+		}
+	}
+})();
+
 // load api
 // the api folder works just like the views folder
 // what you do inside the folder will be different
@@ -162,38 +191,12 @@ exports.loadModules = function() {
 			app.modules[module.name] = module.exports;
 		}
 	}
-	
-};
-
-exports.setupInterfaces = function() {
-	interfaces = fs.readdirSync('./interface');
-	if(interfaces){
-		var packages = [];
-		for(var i=0,len=interfaces.length;i<len;i++){
-			if(fs.statSync('./interface/'+interfaces[i]).isDirectory()){
-				var env;
-				var folderinterfaces = fs.readdirSync('./interface/'+interfaces[i]);
-				if(require('./interface/'+interfaces[i]+'/package.json')){
-					env = require('./interface/'+interfaces[i]+'/package.json');
-				} else {
-					env = app.env;
-				}
-				var pack = new Package(interfaces[i],env,"interface");
-				pack.name = interfaces[i];
-				packages.push(pack);
-			}
-		}
-		for(var a=0,l=packages.length;a<l;a++){
-			packages[a].load({
-				assets : false
-			});
-		}
-	}
 };
 
 exports.initInterfaces = function() {
-	for(var i=0;i<interfaces.length; i++) {
-		interfaces[i].initialize();
+	var interfaces = app.interfaces;
+	for(var i in interfaces) {
+		interfaces[i].init();
 	}
 };
 

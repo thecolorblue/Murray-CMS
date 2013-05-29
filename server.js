@@ -1,6 +1,3 @@
-var express = require('express');
-app = express();
-
 
 // if you want different settings for different environments
 // not required
