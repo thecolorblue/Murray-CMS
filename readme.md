@@ -22,22 +22,20 @@ Copy this repo into a folder.
 
 	git clone https://github.com/thecolorblue/Murray-CMS.git
 
-Create your own copy of default.settings.js.
-
-	mv default.settings.js development.settings.js
-
-Create your schema.js and routes.js. Then edit the splash view, or create your own.
-
-And you should be good to go. 
-
+Check out the examples in the examples folder. There is one using express, one using thrift and one that combines the two.
 
 ## Requirements
 
-Murray is pretty opinionated right now. In the future this will change. You have to use Mongoose (and by default Mongodb), express, and mu2(mustache templates). 
-
-If you run into any problems create an issue at https://github.com/thecolorblue/Murray-CMS
+Murray is pretty laid back, its only requirements are coffeescript and cson which lets you write .json files in coffeescript. All other requirements that you will need are related to either the interfaces or the views that you write. 
 
 ## Folders
+
+### Interfaces
+
+Interfaces are the IO of your application. Express, mongoose, thrift, MySQL will all get their own folder in /interfaces. Each interface file requires a index.js and a package.json file. Everything thing else in the folder will be ignored by murray and can be used to organize interface requirements. An example of this in the express demo is the routes.cson file that is read index.js.
+
+There are two steps to loading an interface. You might not need the second one so you can ignore it if you want. First, the index.js file is loaded. Module.exports in index.js will be set to app.interfaces[interface_name]. 
+
 
 ### Views
 
@@ -86,10 +84,6 @@ If you have used this mustache template engine before, you will notice that I am
 
 Oh right, the assets folder. If there is an assets folder in your view, Murray will make it accessible at /{{view.name}}/{{staticFile}}. This is not as verbose as other CMS's, you might run into naming issues with alot of pages, but thats not what Murray really excels at. It was originally designed for apps with only a couple pages, and heavy amounts of client side javascript. 
 
-### Public
-
-The public folder is pretty basic. Murray sets it up just like a express static folder. All the files in there will be available at /{{ file_name }}. I suggest putting  your javascript in /js, css in /css, and images in /images, so that you do not run into issues with any views with the same name. Keep in mind, this folder should only have assets that you are using on multiple pages. Anything specific to one page can go in that pages assets folder. 
-
 ### Modules
 
 Modules are very simple, they are just a collection of functions or settings. I use them as models for outside resources, for example facebook integration. Each one needs an index.js and a package.json. The package.json file is empty for now, just there for future-proofing. Make sure to put an empty object in or it will error. 
@@ -112,4 +106,13 @@ Do not put any application specific settings in here. Those should go in your se
 
 ## Files
 
-TODO 
+### app.js
+
+This is the very first thing that loads. It creates the global app object and provides some helpers. Your server.js file will need to run the helpers to load everything in the correct order. 
+
+The global app object does have one helper that will help you search thru your interfaces/modules/views. app.find() will look through the interfaces, modules, and views for whatever you pass as the first argument. Look at the examples for how this is done. 
+
+## Todo
+
+- tests
+- connect plugin integration
