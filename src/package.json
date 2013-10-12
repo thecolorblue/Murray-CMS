@@ -1,17 +1,14 @@
 {
-	"name":"jmblaya",
+	"name":"Murray",
 	"description":"Social Recipe Creation",
 	"keywords":["blog","CMS","helper"],
 	"version":"0.2.1",
 	"tag":"alpha",
 	"author":"Brad Davis <brad@braddavis.cc> (http://braddavis.cc)",
-	"directories":{"views":"./views"},
-	"main":"murray",
-	"bin":"server.js",
 	"dependencies": {
-		"express": "3.0.0rc5",
-		"mongoose": "3.1.1",
-		"mu2": "0.5.13"
+		"express": "3.3.4",
+		"coffee-script" : "1.6.3",
+		"cson" : "1.4.4"
 	},
 	"engines": {
 		"node": "0.8.x",

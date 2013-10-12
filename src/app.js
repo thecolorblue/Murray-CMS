@@ -1,8 +1,34 @@
 var fs = require('fs');
 var express = require('express');
 var packagejson = require('./package.json');
-
+app = {
+	find: function(name, group) {
+		var i, j, k;
+		if(group) {
+			if(group === 'interfaces') {
+				for (i in app.interfaces) {
+					if(name === app.interfaces[i].name) return app.interfaces[i].exports;
+				}
+			} else if(group === 'modules' || group === 'views') {
+				for (j = 0; j < app[group].length; j++) {
+					if(name === app[group][j].name) return app[group][j].exports;
+				}
+			}
+		} else {
+			for (i in app.interfaces) {
+				if(name === app.interfaces[i].name) return app.interfaces[i].exports;
+			}
+			for (j = 0; j < app.modules.length; j++) {
+				if(name === app.modules[j].name) return app.modules[j].exports;
+			}
+			for (k = 0; k < app.views.length; k++) {
+				if(name === app.views[k].name) return app.views[k].exports;
+			}
+		}
+	}
+};
 var interfaces = [];
+var coffee = require('coffee-script');
 
 function extendPackage(env) {
 	if(env.dependencies) {
@@ -52,7 +78,6 @@ function Package(name, env, folder){
 Package.prototype.load = function(o){
 		var settings = this.settings;
 		this.attributes = require('./'+ this.folder + '/'+this.name+'/package.json');
-		if(o.assets) app.use('/' + this.name, express.static('./'+ this.folder + '/'+ this.name + '/assets'));
 		var isCore = /^\.\//;
 		// if(attributes.clientDeps){
 		// 	for(var d=0,len=attributes.clientDeps.length;d<len;d++){
@@ -72,67 +97,79 @@ Package.prototype.load = function(o){
 		// 		settings.partials[p].value = part;
 		// 	}
 		// }
-		this.exports = require('./'+ this.folder + '/'+this.name+'/index.js');
+		this.exports = require('./'+ this.folder + '/'+this.name+'/index');
+		if(o.assets) app.interfaces.express.exports.use('/' + this.name, express.static('./'+ this.folder + '/'+ this.name + '/assets'));
 };
 Package.prototype.init = function(options) {
 	if(typeof this.exports.prototype === 'object') new this.exports(this.attributes);
-	else if(typeof this.exports === 'function') this.exports.call(this.attributes);	
+	else if(typeof this.exports === 'function') this.exports.call(this.attributes);
 };
 
-// setup interfaces first
-(function() {
-	interfaces = fs.readdirSync('./interface');
-	if(interfaces){
-		var packages = [];
-		for(var i=0,len=interfaces.length;i<len;i++){
-			if(fs.statSync('./interface/'+interfaces[i]).isDirectory()){
-				var env;
-				var folderinterfaces = fs.readdirSync('./interface/'+interfaces[i]);
-				if(require('./interface/'+interfaces[i]+'/package.json')){
-					env = require('./interface/'+interfaces[i]+'/package.json');
-				} else {
-					env = app.env;
-				}
-				var pack = new Package(interfaces[i],env,"interface");
-				pack.name = interfaces[i];
-				packages.push(pack);
-			}
-		}
-		for(var a=0,l=packages.length;a<l;a++){
-			// interfaces don't have assets
-			packages[a].load({
-				assets : false
-			});
-			app.interfaces[packages[a].name] = packages[a];
-		}
-	}
-})();
+function Interface(name, env, folder){
+	if(folder) this.folder = folder;
+	else this.folder = 'views';
+	this.settings = {
+		libraries : '',
+		env     : env,
+		name    : name
+	};
+}
+Interface.prototype.load = function(o){
+		var settings = this.settings;
+		this.attributes = require('./'+ this.folder + '/'+this.name+'/package.json');
+		var isCore = /^\.\//;
+		// if(attributes.clientDeps){
+		// 	for(var d=0,len=attributes.clientDeps.length;d<len;d++){
+		// 		if(!isCore.test(attributes.clientDeps[d])) settings.libraries += '<script src="/js/'+attributes.clientDeps[d]+'.js"></script>';
+		// 		else settings.libraries += '<script src="'+attributes.clientDeps[d]+'.js"></script>';
+		// 	}
+		// }
+		// if(attributes.partials){
+		// 	settings.partials = [];
+		// 	var partials = attributes.partials;
+		// 	for(var p=0,l=partials.length;p<l;p++){
+		// 		var pname = attributes.partials[p];
+		// 		var part = fs.readFileSync('./'+ this.folder + '/'+this.name+'/partials/'+pname,'utf8');
+		// 		part = ';parts["'+pname.replace('.html','')+'"] = \'' + part.replace(/\s*\n\s*/g,'') + '\';';
+		// 		settings.partials[p] = {};
+		// 		settings.partials[p].name = attributes.partials[p].replace('.html','');
+		// 		settings.partials[p].value = part;
+		// 	}
+		// }
+		this.exports = require('./'+ this.folder + '/'+this.name+'/index');
+		this.init = this.exports.init;		
+};
 
 // load api
 // the api folder works just like the views folder
 // what you do inside the folder will be different
 exports.loadAPI = function() {
-	var apis = fs.readdirSync('./interfaces');
-	if(apis){
-		var packages = [];
-		for(var i=0,len=apis.length;i<len;i++){
-			if(fs.statSync('./interfaces/'+apis[i]).isDirectory()){
-				var env;
-				var folderapis = fs.readdirSync('./interfaces/'+apis[i]);
-				if(require('./interfaces/'+apis[i]+'/package.json')){
-					env = require('./interfaces/'+apis[i]+'/package.json');
+	var package, interfaces, env, folderinterfaces, packages, i, pack, a;
+
+	app.interfaces = {};
+	interfaces = fs.readdirSync('./interfaces');
+	if(interfaces){
+		packages = [];
+		for(i=0, len=interfaces.length; i<len; i++){
+			if(fs.statSync('./interfaces/'+interfaces[i]).isDirectory()){
+				folderinterfaces = fs.readdirSync('./interfaces/'+interfaces[i]);
+				if(require('./interfaces/'+interfaces[i]+'/package.json')){
+					env = require('./interfaces/'+interfaces[i]+'/package.json');
 				} else {
 					env = app.env;
 				}
-				var pack = new Package(apis[i],env,"api");
-				pack.name = apis[i];
+				pack = new Interface(interfaces[i],env,"interfaces");
+				pack.name = interfaces[i];
 				packages.push(pack);
 			}
 		}
-		for(var a=0,l=packages.length;a<l;a++){
-			packages[a].load({
+		for(a=0, l=packages.length; a<l; a++){
+			// interfaces don't have assets
+			package = packages[a];
+			package.load({
 				assets : false
 			});
+			app.interfaces[package.name] = package;
 		}
 	}
 };
@@ -196,7 +233,8 @@ exports.loadModules = function() {
 exports.initInterfaces = function() {
 	var interfaces = app.interfaces;
 	for(var i in interfaces) {
-		interfaces[i].init();
+		console.log('initializing:',interfaces[i].folder,interfaces[i].name);
+		if(typeof interfaces[i].init === "function") interfaces[i].init();
 	}
 };
 
