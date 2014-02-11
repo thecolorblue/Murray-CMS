@@ -1,0 +1,12 @@
+###
+	Routes
+	list of routes for this app
+###
+
+"get /"         : "marketing.front"
+"get /about"    : "marketing.about"
+
+"get /app/"      : "web.app"
+
+"get  /t/:id"   : "tidi.showContent"
+"get  /t/"      : "tidi.findContent"
